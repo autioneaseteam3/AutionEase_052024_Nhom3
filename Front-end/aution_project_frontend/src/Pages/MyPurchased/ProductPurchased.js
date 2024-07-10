@@ -37,7 +37,7 @@ function ProductPurchased() {
               <td className=" w-2/5">
                 <div className=" flex items-center justify-center ">
                   <img
-                    className="w-[80px] h-[60px] mr-8"
+                    className="w-[80px] h-[60px] mr-12"
                     src={data.img}
                     alt=""
                   ></img>

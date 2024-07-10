@@ -11,7 +11,7 @@ function MyPurchasedPage() {
       </div>
       <div className="flex justify-center">
         <div className=" w-4/5 flex flex-start my-[20px]">
-          <div className="text-[30px]"> My Purchased</div>
+          <div className="text-[30px] font-semibold">My Purchased Property</div>
         </div>
       </div>
       <ProductPurchased />
