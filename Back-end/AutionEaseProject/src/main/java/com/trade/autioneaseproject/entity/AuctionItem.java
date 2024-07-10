@@ -1,17 +1,17 @@
 package com.trade.autioneaseproject.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter @Setter
 @Entity
-@Table(name = "AuctionItems")
+@Table(name = "auctionitems")
 public class AuctionItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer auctionItemID;
 
     @ManyToOne

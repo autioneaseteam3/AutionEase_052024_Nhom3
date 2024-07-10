@@ -21,12 +21,12 @@ public class Asset {
     private String assetDescription;
     private Float assetPrice;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "asset")
+    @ManyToOne
+    @JoinColumn(name = "assetTypeID")
     private AssetType assetType;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "asset")
+    @ManyToOne
+    @JoinColumn(name = "assetStatusID")
     private AssetStatus assetStatus;
 
     @JsonIgnore
