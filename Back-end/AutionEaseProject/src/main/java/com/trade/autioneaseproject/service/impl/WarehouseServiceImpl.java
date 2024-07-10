@@ -15,12 +15,12 @@ public class WarehouseServiceImpl implements WarehouseService {
     private WarehouseDAO warehouseDAO;
     @Override
     public List<Warehouse> getAll() {
-        return warehouseDAO.findAll();
+        return warehouseDAO.findAllActive();
     }
 
     @Override
     public Warehouse getOne(Integer id) {
-        return warehouseDAO.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return warehouseDAO.findActiveById(id).orElseThrow(() -> new RuntimeException("Warehouse not found"));
     }
 
     @Override
@@ -30,16 +30,24 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Warehouse update(Integer id, Warehouse warehouse) {
-        warehouse.setWarehouseId(id);
-        return this.warehouseDAO.save(warehouse);
+        Warehouse existingWarehouse = warehouseDAO.findActiveById(id)
+                .orElseThrow(() -> new RuntimeException("Warehouse not"));
+
+        existingWarehouse.setLocation(warehouse.getLocation());
+        existingWarehouse.setDelflag(warehouse.isDelflag());
+
+        return this.warehouseDAO.save(existingWarehouse);
     }
 
     @Override
     public boolean delete(Integer id) {
         try {
-            this.warehouseDAO.deleteById(id);
+            Warehouse warehouse = warehouseDAO.findActiveById(id)
+                    .orElseThrow(() -> new RuntimeException("Warehouse not found"));
+            warehouse.setDelflag(true);
+            warehouseDAO.save(warehouse);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;

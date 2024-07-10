@@ -4,12 +4,14 @@ import com.trade.autioneaseproject.entity.Warehouse;
 import com.trade.autioneaseproject.request.ApiResponse;
 import com.trade.autioneaseproject.services.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/warehouse")
+@RequestMapping("/warehouses")
 public class WarehouseController {
     @Autowired
     private WarehouseService warehouseService;
@@ -19,11 +21,11 @@ public class WarehouseController {
         List<Warehouse> warehouses = warehouseService.getAll();
 
         if (warehouses != null){
-            apiResponse.setStatus(200);
+            apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Get all warehouse success");
             apiResponse.setData(warehouses);
         } else {
-            apiResponse.setStatus(400);
+            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
             apiResponse.setMessage("Get all warehouse failed");
             apiResponse.setData(null);
         }
@@ -36,11 +38,11 @@ public class WarehouseController {
         Warehouse warehouse = warehouseService.getOne(id);
 
         if (warehouse != null){
-            apiResponse.setStatus(200);
+            apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Get warehouse success");
             apiResponse.setData(warehouse);
         } else {
-            apiResponse.setStatus(400);
+            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
             apiResponse.setMessage("Get warehouse failed");
             apiResponse.setData(null);
         }
@@ -53,11 +55,11 @@ public class WarehouseController {
         Warehouse warehouse = warehouseService.create(request);
 
         if (warehouse != null){
-            apiResponse.setStatus(200);
+            apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Create warehouse success");
             apiResponse.setData(warehouse);
         } else {
-            apiResponse.setStatus(400);
+            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
             apiResponse.setMessage("Create warehouse failed");
             apiResponse.setData(null);
         }
@@ -70,11 +72,11 @@ public class WarehouseController {
         Warehouse warehouse = warehouseService.update(id, request);
 
         if (warehouse != null){
-            apiResponse.setStatus(200);
+            apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Update warehouse success");
             apiResponse.setData(warehouse);
         } else {
-            apiResponse.setStatus(400);
+            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
             apiResponse.setMessage("Update warehouse failed");
             apiResponse.setData(null);
         }
@@ -87,11 +89,11 @@ public class WarehouseController {
         boolean isDeleted = warehouseService.delete(id);
 
         if(isDeleted){
-            apiResponse.setStatus(200);
+            apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Delete warehouse success");
             apiResponse.setData(null);
         } else {
-            apiResponse.setStatus(400);
+            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
             apiResponse.setMessage("Delete warehouse failed");
             apiResponse.setData(null);
         }
