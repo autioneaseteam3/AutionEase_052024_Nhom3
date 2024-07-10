@@ -1,0 +1,22 @@
+import Search from "../../Components/SharedComponents/Search";
+import ProductPurchased from "./ProductPurchased";
+import banner from "../../Assets/Banner_home.png";
+
+function MyPurchasedPage() {
+  return (
+    <div>
+      <Search />
+      <div>
+        <img className="w-full h-[300px]" src={banner} alt=""></img>
+      </div>
+      <div className="flex justify-center">
+        <div className=" w-4/5 flex flex-start my-[20px]">
+          <div className="text-[30px]"> My Purchased</div>
+        </div>
+      </div>
+      <ProductPurchased />
+    </div>
+  );
+}
+
+export default MyPurchasedPage;

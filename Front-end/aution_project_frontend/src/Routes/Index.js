@@ -1,6 +1,8 @@
 import homeRoutes from "./HomeRoutes";
 import productRoutes from "./ProductRoutes";
-export {
-    homeRoutes,
-    productRoutes
-}
+import myPurchasedRoutes from "./MyPurchasedRoutes";
+export { 
+    homeRoutes, 
+    productRoutes, 
+    myPurchasedRoutes 
+};
