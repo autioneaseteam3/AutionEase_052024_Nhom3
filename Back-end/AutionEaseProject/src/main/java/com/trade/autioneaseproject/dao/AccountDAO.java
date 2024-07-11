@@ -1,0 +1,7 @@
+package com.trade.autioneaseproject.dao;
+
+import com.trade.autioneaseproject.entity.Account;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AccountDAO extends JpaRepository<Account, Integer> {
+}
