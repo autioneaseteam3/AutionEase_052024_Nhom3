@@ -40,8 +40,8 @@ function NavBar() {
                                     </li>
                                 </> :
                                 <>
-                                    <button class="bg-transparent text-[#ff6767] rounded-md  p-2 px-5 border border-gray-300 mr-4 bg-gray-100 ">Sign in</button>
-                                    <button class=" text-white rounded-md  p-2 px-5 mr-4 bg-[#ff6767] ">Sign up</button>
+                                    <button class="bg-white text-[#ff6767] font-semibold rounded-md  p-2 px-5 border border-gray-300 mr-4">Sign in</button>
+                                    <button class=" text-white rounded-md font-semibold   p-2 px-5 mr-4 bg-[#ff6767] ">Sign up</button>
                                 </>
                         }
 
