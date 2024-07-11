@@ -1,28 +1,20 @@
 package com.trade.autioneaseproject.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Entity
 @Table(name = "Warehouses")
 public class Warehouse {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "warehouseID")
-    private Integer warehouseId;
-
-    @Column(name = "location", nullable = false)
+    private Integer warehouseID;
     private String location;
-
-    @Column(name = "delflag", nullable = false)
-    private boolean delflag;
+    private Boolean delflag;
 }

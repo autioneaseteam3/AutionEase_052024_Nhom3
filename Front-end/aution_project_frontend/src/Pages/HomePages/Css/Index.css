@@ -1,0 +1,23 @@
+@media only screen and (max-width:1599px) and (min-width: 1024px) {
+    .content{
+        left: 300px;
+    }
+}
+@media only screen and (min-width:1600px) {
+    .content{
+        left: 350px;
+    }
+}
+@media only screen and (max-width:1024px) {
+    .content{
+        top: 450px;
+        left: 200px;
+        font-size: 50px;
+        max-width: 250px;
+    }
+}
+@media only screen and (max-width:768px) {
+    .content{
+        display: none;
+    }
+}
