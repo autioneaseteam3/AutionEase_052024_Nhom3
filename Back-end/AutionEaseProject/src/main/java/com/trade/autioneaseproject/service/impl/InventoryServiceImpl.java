@@ -2,7 +2,7 @@ package com.trade.autioneaseproject.service.impl;
 
 import com.trade.autioneaseproject.DAO.InventoryDAO;
 import com.trade.autioneaseproject.entity.Inventory;
-import com.trade.autioneaseproject.services.InventoryService;
+import com.trade.autioneaseproject.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,12 @@ public class InventoryServiceImpl implements InventoryService {
     private InventoryDAO inventoryDAO;
     @Override
     public List<Inventory> getAll() {
-        return inventoryDAO.findAllActive();
+        return inventoryDAO.getAll();
     }
 
     @Override
     public Inventory getOne(Integer id) {
-        return inventoryDAO.findActiveById(id).orElseThrow(() -> new RuntimeException("Inventory not found"));
+        return inventoryDAO.getOne(id);
     }
 
     @Override
@@ -30,8 +30,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public Inventory update(Integer id, Inventory inventory) {
-        Inventory existingInventory = inventoryDAO.findActiveById(id)
-                .orElseThrow(() -> new RuntimeException("Inventory not found"));
+        Inventory existingInventory = inventoryDAO.getOne(id);
 
         existingInventory.setQuantity(inventory.getQuantity());
         existingInventory.setEntryTime(inventory.getEntryTime());
@@ -46,8 +45,7 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public boolean delete(Integer id) {
         try {
-            Inventory inventory = inventoryDAO.findActiveById(id)
-                    .orElseThrow(() -> new RuntimeException("Inventory not found"));
+            Inventory inventory = inventoryDAO.getOne(id);
             inventory.setDelflag(true);
             inventoryDAO.save(inventory);
             return true;

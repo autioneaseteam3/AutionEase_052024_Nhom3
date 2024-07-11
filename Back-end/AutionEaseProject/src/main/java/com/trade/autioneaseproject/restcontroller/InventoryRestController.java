@@ -1,9 +1,10 @@
-package com.trade.autioneaseproject.controller;
+package com.trade.autioneaseproject.restcontroller;
 
 
+import com.trade.autioneaseproject.DAO.InventoryDAO;
 import com.trade.autioneaseproject.entity.Inventory;
 import com.trade.autioneaseproject.request.ApiResponse;
-import com.trade.autioneaseproject.services.InventoryService;
+import com.trade.autioneaseproject.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/inventories")
-public class InventoryController {
+public class InventoryRestController {
 
     @Autowired
     private InventoryService inventoryService;

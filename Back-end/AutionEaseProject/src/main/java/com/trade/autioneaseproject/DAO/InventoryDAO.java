@@ -11,8 +11,8 @@ import java.util.Optional;
 @Repository
 public interface InventoryDAO extends JpaRepository<Inventory, Integer> {
     @Query("SELECT i FROM Inventory i WHERE i.delflag = false")
-    List<Inventory> findAllActive();
+    List<Inventory> getAll();
 
     @Query("SELECT i FROM Inventory i WHERE i.inventoryID = :id AND i.delflag = false")
-    Optional<Inventory> findActiveById(Integer id);
+    Inventory getOne(Integer id);
 }

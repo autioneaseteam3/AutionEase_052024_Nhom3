@@ -11,8 +11,8 @@ import java.util.Optional;
 @Repository
 public interface WarehouseDAO extends JpaRepository<Warehouse, Integer> {
     @Query("SELECT w FROM Warehouse w WHERE w.delflag = false")
-    List<Warehouse> findAllActive();
+    List<Warehouse> getAll();
 
-    @Query("SELECT w FROM Warehouse w WHERE w.warehouseId = :id AND w.delflag = false")
-    Optional<Warehouse> findActiveById(Integer id);
+    @Query("SELECT w FROM Warehouse w WHERE w.warehouseID = :id AND w.delflag = false")
+    Warehouse getOne(Integer id);
 }

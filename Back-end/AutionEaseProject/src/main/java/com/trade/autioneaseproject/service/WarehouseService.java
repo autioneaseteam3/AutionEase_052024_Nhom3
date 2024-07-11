@@ -1,4 +1,4 @@
-package com.trade.autioneaseproject.services;
+package com.trade.autioneaseproject.service;
 
 import com.trade.autioneaseproject.entity.Warehouse;
 

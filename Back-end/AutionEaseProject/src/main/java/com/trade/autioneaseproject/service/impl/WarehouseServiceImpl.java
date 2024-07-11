@@ -2,7 +2,7 @@ package com.trade.autioneaseproject.service.impl;
 
 import com.trade.autioneaseproject.DAO.WarehouseDAO;
 import com.trade.autioneaseproject.entity.Warehouse;
-import com.trade.autioneaseproject.services.WarehouseService;
+import com.trade.autioneaseproject.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,12 @@ public class WarehouseServiceImpl implements WarehouseService {
     private WarehouseDAO warehouseDAO;
     @Override
     public List<Warehouse> getAll() {
-        return warehouseDAO.findAllActive();
+        return warehouseDAO.getAll();
     }
 
     @Override
     public Warehouse getOne(Integer id) {
-        return warehouseDAO.findActiveById(id).orElseThrow(() -> new RuntimeException("Warehouse not found"));
+        return warehouseDAO.getOne(id);
     }
 
     @Override
@@ -30,11 +30,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Warehouse update(Integer id, Warehouse warehouse) {
-        Warehouse existingWarehouse = warehouseDAO.findActiveById(id)
-                .orElseThrow(() -> new RuntimeException("Warehouse not"));
+        Warehouse existingWarehouse = warehouseDAO.getOne(id);
 
         existingWarehouse.setLocation(warehouse.getLocation());
-        existingWarehouse.setDelflag(warehouse.isDelflag());
+        existingWarehouse.setDelflag(warehouse.getDelflag());
 
         return this.warehouseDAO.save(existingWarehouse);
     }
@@ -42,8 +41,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public boolean delete(Integer id) {
         try {
-            Warehouse warehouse = warehouseDAO.findActiveById(id)
-                    .orElseThrow(() -> new RuntimeException("Warehouse not found"));
+            Warehouse warehouse = warehouseDAO.getOne(id);
             warehouse.setDelflag(true);
             warehouseDAO.save(warehouse);
             return true;
