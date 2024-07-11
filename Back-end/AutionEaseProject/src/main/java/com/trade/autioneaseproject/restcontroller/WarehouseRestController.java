@@ -1,6 +1,5 @@
 package com.trade.autioneaseproject.restcontroller;
 
-import com.trade.autioneaseproject.dao.WarehouseDAO;
 import com.trade.autioneaseproject.entity.Warehouse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
