@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface AuctionItemDAO extends JpaRepository<AuctionItem, Integer> {
-    @Query("select a from AuctionItem a where a.delflag = true")
+    @Query("select a from AuctionItem a where a.delflag = false")
     List<AuctionItem> getAll();
 
-    @Query("select a from AuctionItem a where a.auctionItemID = :id and a.delflag = true")
+    @Query("select a from AuctionItem a where a.auctionItemID = :id and a.delflag = false")
     AuctionItem getOne(Integer id);
 }
