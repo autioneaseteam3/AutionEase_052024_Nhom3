@@ -9,6 +9,7 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './common/interceptors';
 import { AllExceptionsFilter } from './common/filters';
 import { SharedModule } from './shared/shared.module';
+import { RequestModule } from './request/request.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { SharedModule } from './shared/shared.module';
     PrismaModule,
     ConfigModule.forRoot({ isGlobal: true }),
     SharedModule,
+    RequestModule,
   ],
   controllers: [AppController],
   providers: [
