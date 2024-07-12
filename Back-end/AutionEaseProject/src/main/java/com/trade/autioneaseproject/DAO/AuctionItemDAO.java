@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AuctionItemDAO extends JpaRepository<AuctionItem, Integer> {
@@ -13,5 +14,5 @@ public interface AuctionItemDAO extends JpaRepository<AuctionItem, Integer> {
     List<AuctionItem> getAll();
 
     @Query("select a from AuctionItem a where a.auctionItemID = :id and a.delflag = false")
-    AuctionItem getOne(Integer id);
+    Optional<AuctionItem> findAuctionItemById(Integer id);
 }

@@ -3,6 +3,7 @@ package com.trade.autioneaseproject.service.impl;
 import com.trade.autioneaseproject.DAO.AuctionSessionDAO;
 import com.trade.autioneaseproject.entity.AuctionSession;
 import com.trade.autioneaseproject.service.AuctionSessionService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,8 @@ public class AuctionSessionImpl implements AuctionSessionService {
 
     @Override
     public AuctionSession getOne(Integer id) {
-        return auctionSessionDAO.getOne(id);
+        return auctionSessionDAO.findAuctionSessionByIy(id)
+                .orElseThrow(() -> new RuntimeException("Auction session not found"));
     }
 
     @Override
@@ -29,7 +31,8 @@ public class AuctionSessionImpl implements AuctionSessionService {
 
     @Override
     public AuctionSession update(Integer id, AuctionSession auctionSession) {
-        AuctionSession existingAuctionSession = auctionSessionDAO.getOne(id);
+        AuctionSession existingAuctionSession = auctionSessionDAO.findAuctionSessionByIy(id)
+                .orElseThrow(() -> new RuntimeException("Auction session not found"));
 
         existingAuctionSession.setStartTime(auctionSession.getStartTime());
         existingAuctionSession.setEndTime(auctionSession.getEndTime());
@@ -40,14 +43,11 @@ public class AuctionSessionImpl implements AuctionSessionService {
 
     @Override
     public boolean delete(Integer id) {
-        try {
-            AuctionSession auctionSession = auctionSessionDAO.getOne(id);
-            auctionSession.setDelflag(true);
-            auctionSessionDAO.save(auctionSession);
-            return true;
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return false;
+        AuctionSession auctionSession = auctionSessionDAO.findAuctionSessionByIy(id)
+                .orElseThrow(() -> new RuntimeException("Auction session not found"));
+
+        auctionSession.setDelflag(true);
+        auctionSessionDAO.save(auctionSession);
+        return true;
     }
 }

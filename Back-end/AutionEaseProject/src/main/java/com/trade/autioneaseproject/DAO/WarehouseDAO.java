@@ -14,5 +14,5 @@ public interface WarehouseDAO extends JpaRepository<Warehouse, Integer> {
     List<Warehouse> getAll();
 
     @Query("SELECT w FROM Warehouse w WHERE w.warehouseID = :id AND w.delflag = false")
-    Warehouse getOne(Integer id);
+    Optional<Warehouse> findWarehouseById(Integer id);
 }

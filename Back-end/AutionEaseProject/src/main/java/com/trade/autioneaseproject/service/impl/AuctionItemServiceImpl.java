@@ -22,7 +22,8 @@ public class AuctionItemServiceImpl implements AuctionItemService {
 
     @Override
     public AuctionItem getOne(Integer id) {
-        return auctionItemDAO.getOne(id);
+        return auctionItemDAO.findAuctionItemById(id)
+                .orElseThrow(() -> new RuntimeException("Auction item not found"));
     }
 
     @Override
@@ -44,7 +45,8 @@ public class AuctionItemServiceImpl implements AuctionItemService {
 
     @Override
     public AuctionItem update(Integer id, AuctionItemRequest request) {
-        AuctionItem auctionItem = auctionItemDAO.getOne(id);
+        AuctionItem auctionItem = auctionItemDAO.findAuctionItemById(id)
+                .orElseThrow(() -> new RuntimeException("Auction item not found"));
 
         auctionItem.setAuctionSession(new AuctionSession());
         auctionItem.getAuctionSession().setAuctionSessionID(request.getAuctionSessionID());
@@ -61,14 +63,10 @@ public class AuctionItemServiceImpl implements AuctionItemService {
 
     @Override
     public boolean delete(Integer id) {
-        try {
-            AuctionItem auctionItem = auctionItemDAO.getOne(id);
-            auctionItem.setDelflag(true);
-            auctionItemDAO.save(auctionItem);
-            return true;
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return false;
+        AuctionItem auctionItem = auctionItemDAO.findAuctionItemById(id)
+                .orElseThrow(() -> new RuntimeException("Auction item not found"));
+        auctionItem.setDelflag(true);
+        auctionItemDAO.save(auctionItem);
+        return true;
     }
 }

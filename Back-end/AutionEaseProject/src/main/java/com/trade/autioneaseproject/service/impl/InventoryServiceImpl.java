@@ -20,7 +20,8 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public Inventory getOne(Integer id) {
-        return inventoryDAO.getOne(id);
+        return inventoryDAO.findInventoryById(id)
+                .orElseThrow(() -> new RuntimeException("Inventory not found"));
     }
 
     @Override
@@ -30,7 +31,8 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public Inventory update(Integer id, Inventory inventory) {
-        Inventory existingInventory = inventoryDAO.getOne(id);
+        Inventory existingInventory = inventoryDAO.findInventoryById(id)
+                .orElseThrow(() -> new RuntimeException("Inventory not found"));
 
         existingInventory.setQuantity(inventory.getQuantity());
         existingInventory.setEntryTime(inventory.getEntryTime());
@@ -44,14 +46,10 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public boolean delete(Integer id) {
-        try {
-            Inventory inventory = inventoryDAO.getOne(id);
-            inventory.setDelflag(true);
-            inventoryDAO.save(inventory);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+        Inventory inventory = inventoryDAO.findInventoryById(id)
+                .orElseThrow(() -> new RuntimeException("Inventory not found"));
+        inventory.setDelflag(true);
+        inventoryDAO.save(inventory);
+        return true;
     }
 }
