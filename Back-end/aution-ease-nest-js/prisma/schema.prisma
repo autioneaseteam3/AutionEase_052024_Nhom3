@@ -8,47 +8,42 @@ datasource db {
 }
 
 model Accounts {
-  userID       Int            @id(map: "PK_Accounts") @default(autoincrement())
-  firstName    String         @db.VarChar(Max)
-  lastName     String?        @db.VarChar(Max)
-  password     String         @db.VarChar(Max)
-  address      String         @db.VarChar(Max)
-  gender       Boolean?
-  email        String         @db.VarChar(Max)
-  phoneNumber  String         @db.VarChar(Max)
-  SSN          String         @db.VarChar(Max)
-  favotire     String?        @db.VarChar(Max)
-  token        String?        @db.VarChar(Max)
-  delflag      Boolean
-  Authorities  Authorities[]
-  BidHistories BidHistories[]
-  Bills        Bills[]
-  Histories    Histories[]
-  Inspectors   Inspectors[]
-  Requests     Requests[]
-  Watchlists   Watchlists[]
+  userID           String             @id(map: "PK__Accounts__CB9A1CDFF1BE079A") @db.VarChar(50)
+  firstName        String             @db.VarChar(Max)
+  lastName         String?            @db.VarChar(Max)
+  password         String             @db.VarChar(Max)
+  address          String             @db.VarChar(Max)
+  gender           Boolean?
+  email            String             @db.VarChar(Max)
+  phoneNumber      String             @db.VarChar(Max)
+  SSN              String             @db.VarChar(Max)
+  favotire         String?            @db.VarChar(Max)
+  token            String?            @db.VarChar(Max)
+  delflag          Boolean
+  Authorities      Authorities[]
+  Bills            Bills[]
+  Deposits         Deposits[]
+  DetailInspectors DetailInspectors[]
+  Histories        Histories[]
+  StaffEnvents     StaffEnvents[]
+  Watchlists       Watchlists[]
 }
 
 model Assets {
-  assetID          Int              @id(map: "PK_Assets") @default(autoincrement())
-  assetName        String           @db.VarChar(Max)
-  mainImage        String           @db.VarChar(Max)
-  assetDescription String?          @db.VarChar(Max)
+  assetID          Int            @id(map: "PK_Assets") @default(autoincrement())
+  assetName        String         @db.VarChar(Max)
+  mainImage        String         @db.VarChar(Max)
+  assetDescription String?        @db.VarChar(Max)
   assetPrice       Float
   assetTypeID      Int
   assetStatusID    Int
   imageID          Int
   shippingStatusID Int
   delflag          Boolean
-  AssetStatuses    AssetStatuses    @relation(fields: [assetStatusID], references: [assetStatusID], onUpdate: NoAction, map: "FK_Assets_AssetStatuses")
-  AssetTypes       AssetTypes       @relation(fields: [assetTypeID], references: [assetTypeID], onUpdate: NoAction, map: "FK_Assets_AssetTypes")
-  ImageAssets      ImageAssets      @relation(fields: [imageID], references: [imageAssetID], onUpdate: NoAction, map: "FK_Assets_ImageAssets")
-  ShippingStatuses ShippingStatuses @relation(fields: [shippingStatusID], references: [shippingStatusID], onUpdate: NoAction, map: "FK_Assets_ShippingStatuses")
+  AssetStatuses    AssetStatuses  @relation(fields: [assetStatusID], references: [assetStatusID], onUpdate: NoAction, map: "FK_Assets_AssetStatuses")
+  AssetTypes       AssetTypes     @relation(fields: [assetTypeID], references: [assetTypeID], onUpdate: NoAction, map: "FK_Assets_AssetTypes")
+  ImageAssets      ImageAssets    @relation(fields: [imageID], references: [imageAssetID], onUpdate: NoAction, map: "FK_Assets_ImageAssets")
   AuctionItems     AuctionItems[]
-  BillItems        BillItems[]
-  Inventories      Inventories[]
-  Requests         Requests[]
-  Watchlists       Watchlists[]
 }
 
 model AssetStatuses {
@@ -74,79 +69,96 @@ model AuctionItems {
   delflag          Boolean
   Assets           Assets          @relation(fields: [assetID], references: [assetID], onUpdate: NoAction, map: "FK_AuctionItems_Assets")
   AuctionSessions  AuctionSessions @relation(fields: [auctionSessionID], references: [auctionSessionID], onUpdate: NoAction, map: "FK_AuctionItems_AuctionSessions")
-  BidHistories     BidHistories[]
 }
 
 model AuctionSessions {
-  auctionSessionID Int            @id(map: "PK_AuctionSessions") @default(autoincrement())
+  auctionSessionID Int            @id(map: "PK__AuctionS__980AC2603ABBDB37") @default(autoincrement())
   startTime        DateTime       @db.Date
   endTime          DateTime       @db.Date
+  eventID          Int?
   delflag          Boolean
   AuctionItems     AuctionItems[]
-  Deposits         Deposits[]
+  Envents          Envents?       @relation(fields: [eventID], references: [eventID], onDelete: NoAction, onUpdate: NoAction, map: "FK_AuctionSessions_Envents")
 }
 
 model Authorities {
   authoritID Int      @id(map: "PK_Authorities") @default(autoincrement())
-  userID     Int
+  userID     String   @db.VarChar(50)
   roleID     Int
   Accounts   Accounts @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_Authorities_Accounts")
   Roles      Roles    @relation(fields: [roleID], references: [roleID], onUpdate: NoAction, map: "FK_Authorities_Roles")
 }
 
 model BidHistories {
-  bidHistoryID  Int          @id(map: "PK_BidHistories") @default(autoincrement())
+  bidHistoryID  Int         @id(map: "PK_BidHistories") @default(autoincrement())
   auctionItemID Int
-  userID        Int
+  userID        String      @db.VarChar(50)
   bidAmount     Float
-  bidTime       DateTime     @db.Date
-  Accounts      Accounts     @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_BidHistories_Accounts")
-  AuctionItems  AuctionItems @relation(fields: [auctionItemID], references: [auctionItemID], onUpdate: NoAction, map: "FK_BidHistories_AuctionItems")
+  bidTime       DateTime    @db.Date
   Histories     Histories[]
 }
 
 model BillItems {
-  billItemID Int      @id(map: "PK_BillItems") @default(autoincrement())
+  billItemID Int   @id(map: "PK_BillItems") @default(autoincrement())
   billID     Int
   assetID    Int
   taxID      Int
   bidAmount  Int
   depositID  Int
-  Assets     Assets   @relation(fields: [assetID], references: [assetID], onUpdate: NoAction, map: "FK_BillItems_Assets")
-  Bills      Bills    @relation(fields: [billID], references: [billID], onUpdate: NoAction, map: "FK_BillItems_Bills")
-  Deposits   Deposits @relation(fields: [depositID], references: [depositID], onUpdate: NoAction, map: "FK_BillItems_Deposits")
-  Taxs       Taxs     @relation(fields: [taxID], references: [taxID], onUpdate: NoAction, map: "FK_BillItems_Taxs")
+  Bills      Bills @relation(fields: [billID], references: [billID], onUpdate: NoAction, map: "FK_BillItems_Bills")
+  Taxs       Taxs  @relation(fields: [taxID], references: [taxID], onUpdate: NoAction, map: "FK_BillItems_Taxs")
 }
 
 model Bills {
-  billID          Int             @id(map: "PK_Bills") @default(autoincrement())
-  userID          Int
-  billDate        DateTime        @db.Date
-  totalAmount     Float
-  depositAmount   Float
-  feePercentage   Float
-  paymentStatusID Int
-  BillItems       BillItems[]
-  Accounts        Accounts        @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_Bills_Accounts")
-  PaymentStatuses PaymentStatuses @relation(fields: [paymentStatusID], references: [paymentStatusID], onUpdate: NoAction, map: "FK_Bills_PaymentStatuses")
+  billID        Int         @id(map: "PK_Table_1") @default(autoincrement())
+  userID        String      @db.VarChar(50)
+  billDate      DateTime    @db.Date
+  totalAmount   Float
+  depositAmount Float
+  feePercentage Float
+  paymentStatus String      @db.VarChar(Max)
+  BillItems     BillItems[]
+  Accounts      Accounts    @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_Bills_Accounts")
+  Histories     Histories[]
 }
 
 model Deposits {
-  depositID        Int             @id(map: "PK_Deposits") @default(autoincrement())
+  depositID        Int      @id(map: "PK_Deposits") @default(autoincrement())
   auctionSessionID Int
-  userID           Int
+  userID           String   @db.VarChar(50)
   depositAmount    Float
-  BillItems        BillItems[]
-  AuctionSessions  AuctionSessions @relation(fields: [auctionSessionID], references: [auctionSessionID], onUpdate: NoAction, map: "FK_Deposits_AuctionSessions")
+  Accounts         Accounts @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_Deposits_Accounts")
+}
+
+model DetailInspectors {
+  detailInspectorID Int        @id(map: "PK_DetailInspectors") @default(autoincrement())
+  inspectorID       Int
+  userID            String     @db.VarChar(50)
+  Accounts          Accounts   @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_DetailInspectors_Accounts")
+  Inspectors        Inspectors @relation(fields: [inspectorID], references: [inspectorID], onUpdate: NoAction, map: "FK_DetailInspectors_Inspectors")
+  Requests          Requests[]
+}
+
+model Envents {
+  eventID         Int               @id(map: "PK__Envents__2DC7BD69D9994BAE") @default(autoincrement())
+  eventName       String            @db.VarChar(Max)
+  startTime       DateTime          @db.Date
+  endTime         DateTime          @db.Date
+  state           String            @db.VarChar(Max)
+  description     String            @db.VarChar(Max)
+  delflag         Boolean
+  AuctionSessions AuctionSessions[]
+  StaffEnvents    StaffEnvents[]
 }
 
 model Histories {
   historyID    Int          @id(map: "PK_Histories") @default(autoincrement())
-  userID       Int
+  userID       String       @db.VarChar(50)
   bidHistoryID Int
   billID       Int
   Accounts     Accounts     @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_Histories_Accounts")
   BidHistories BidHistories @relation(fields: [bidHistoryID], references: [bidHistoryID], onUpdate: NoAction, map: "FK_Histories_BidHistories")
+  Bills        Bills        @relation(fields: [billID], references: [billID], onUpdate: NoAction, map: "FK_Histories_Bills")
 }
 
 model ImageAssets {
@@ -158,11 +170,9 @@ model ImageAssets {
 }
 
 model Inspectors {
-  inspectorID Int        @id(map: "PK_Inspectors") @default(autoincrement())
-  liscense    String     @db.VarChar(Max)
-  userID      Int
-  Accounts    Accounts   @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_Inspectors_Accounts")
-  Requests    Requests[]
+  inspectorID      Int                @id(map: "PK_Inspectors") @default(autoincrement())
+  liscense         String             @db.VarChar(Max)
+  DetailInspectors DetailInspectors[]
 }
 
 model Inventories {
@@ -173,30 +183,20 @@ model Inventories {
   warehouseID Int
   assetID     Int
   delflag     Boolean
-  Assets      Assets     @relation(fields: [assetID], references: [assetID], onUpdate: NoAction, map: "FK_Inventories_Assets")
   Warehouses  Warehouses @relation(fields: [warehouseID], references: [warehouseID], onUpdate: NoAction, map: "FK_Inventories_Warehouses")
 }
 
-model PaymentStatuses {
-  paymentStatusID Int     @id(map: "PK_PaymentStatuses") @default(autoincrement())
-  payStatusName   String  @db.VarChar(Max)
-  delflag         Boolean
-  Bills           Bills[]
-}
-
 model Requests {
-  requestID          Int        @id(map: "PK_Requests") @default(autoincrement())
-  nameRequest        String     @db.VarChar(Max)
-  descriptionRequest String?    @db.VarChar(Max)
+  requestID          Int              @id(map: "PK_Requests") @default(autoincrement())
+  nameRequest        String           @db.VarChar(Max)
+  descriptionRequest String?          @db.VarChar(Max)
   verified           Boolean
   requestStatus      Boolean
-  inspectorID        Int
-  userID             Int
+  detailInspectorID  Int
+  userID             String           @db.VarChar(50)
   assetID            Int
   delflag            Boolean
-  Accounts           Accounts   @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_Requests_Accounts")
-  Assets             Assets     @relation(fields: [assetID], references: [assetID], onUpdate: NoAction, map: "FK_Requests_Assets")
-  Inspectors         Inspectors @relation(fields: [inspectorID], references: [inspectorID], onUpdate: NoAction, map: "FK_Requests_Inspectors")
+  DetailInspectors   DetailInspectors @relation(fields: [detailInspectorID], references: [detailInspectorID], onUpdate: NoAction, map: "FK_Requests_DetailInspectors")
 }
 
 model Roles {
@@ -206,10 +206,12 @@ model Roles {
   Authorities Authorities[]
 }
 
-model ShippingStatuses {
-  shippingStatusID Int      @id(map: "PK_ShippingStatuses") @default(autoincrement())
-  SSName           String   @db.VarChar(Max)
-  Assets           Assets[]
+model StaffEnvents {
+  staffEnventID Int      @id(map: "PK__StaffEnv__D6EC08C9914A7238") @default(autoincrement())
+  userID        String   @db.VarChar(50)
+  eventID       Int
+  Accounts      Accounts @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_StaffEnvents_Accounts")
+  Envents       Envents  @relation(fields: [eventID], references: [eventID], onUpdate: NoAction, map: "FK_StaffEnvents_Envents")
 }
 
 model Taxs {
@@ -229,8 +231,7 @@ model Warehouses {
 
 model Watchlists {
   watchlistID Int      @id(map: "PK_Watchlists") @default(autoincrement())
-  userID      Int
+  userID      String   @db.VarChar(50)
   assetID     Int
   Accounts    Accounts @relation(fields: [userID], references: [userID], onUpdate: NoAction, map: "FK_Watchlists_Accounts")
-  Assets      Assets   @relation(fields: [assetID], references: [assetID], onUpdate: NoAction, map: "FK_Watchlists_Assets")
 }
