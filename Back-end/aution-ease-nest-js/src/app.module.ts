@@ -10,6 +10,7 @@ import { ResponseInterceptor } from './common/interceptors';
 import { AllExceptionsFilter } from './common/filters';
 import { SharedModule } from './shared/shared.module';
 import { RequestModule } from './request/request.module';
+import { DetailInspectorModule } from './detail-inspector/detail-inspector.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RequestModule } from './request/request.module';
     ConfigModule.forRoot({ isGlobal: true }),
     SharedModule,
     RequestModule,
+    DetailInspectorModule,
   ],
   controllers: [AppController],
   providers: [

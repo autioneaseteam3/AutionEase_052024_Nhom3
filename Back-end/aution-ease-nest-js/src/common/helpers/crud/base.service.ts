@@ -12,12 +12,13 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
     protected readonly prisma: PrismaService,
     model: Prisma.ModelName,
   ) {
-    this.model = model.toLocaleLowerCase();
+    this.model = model[0].toLocaleLowerCase() + model.slice(1);
     this.pluralModelName = model.toLocaleLowerCase();
-    this.modelId = model.toLocaleLowerCase().slice(0, model.length - 1) + 'ID';
+    this.modelId = this.model.slice(0, model.length - 1) + 'ID';
   }
 
   findAll(): Promise<Model[]> {
+    // console.log(this.model);
     return this.prisma[this.model].findMany();
   }
 
