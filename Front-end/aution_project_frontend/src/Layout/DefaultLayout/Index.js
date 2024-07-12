@@ -6,7 +6,7 @@ function DefaultLayout() {
     const location=useLocation();
     const checkHome=location.pathname==="/" ? true : false;
     return ( 
-        <div className=" h-screen flex flex-col">
+        <div className={`${checkHome && 'h-screen'} flex flex-col`}>
             <NavBar></NavBar>
                 <Outlet></Outlet>
             {
