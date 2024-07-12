@@ -8,12 +8,14 @@ import { AppService } from './app.service';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ResponseInterceptor } from './common/interceptors';
 import { AllExceptionsFilter } from './common/filters';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
     InspectorsModule,
     PrismaModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    SharedModule,
   ],
   controllers: [AppController],
   providers: [
