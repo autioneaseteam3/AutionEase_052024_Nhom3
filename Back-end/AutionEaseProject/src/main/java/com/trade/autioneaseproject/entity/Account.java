@@ -27,7 +27,12 @@ public class Account {
     private String favorite;
     private String token;
     private Boolean delflag;
-
+    public boolean delflag() {
+        return delflag;
+    }
+    public void setDelflag(boolean active) {
+        delflag = active;
+    }
     @JsonIgnore
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
     List<Authority> authorities;
