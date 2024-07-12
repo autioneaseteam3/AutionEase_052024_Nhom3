@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -44,41 +43,23 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
   }
 
   async update(id: number, dto: UpdateDTO): Promise<Model> {
-    try {
-      const updatedData = await this.prisma[this.model].update({
-        where: {
-          [this.modelId]: id,
-        },
-        data: dto,
-      });
+    const updatedData = await this.prisma[this.model].update({
+      where: {
+        [this.modelId]: id,
+      },
+      data: dto,
+    });
 
-      return updatedData;
-    } catch (err) {
-      if (err instanceof PrismaClientKnownRequestError) {
-        if (err.code === 'P2025')
-          throw new NotFoundException(
-            `No ${this.pluralModelName} found with this id`,
-          );
-      }
-    }
+    return updatedData;
   }
 
   async delete(id: number): Promise<null> {
-    try {
-      await this.prisma[this.model].delete({
-        where: {
-          [this.modelId]: id,
-        },
-      });
+    await this.prisma[this.model].delete({
+      where: {
+        [this.modelId]: id,
+      },
+    });
 
-      return null;
-    } catch (err) {
-      if (err instanceof PrismaClientKnownRequestError) {
-        if (err.code === 'P2025')
-          throw new NotFoundException(
-            `No ${this.pluralModelName} found with this id`,
-          );
-      }
-    }
+    return null;
   }
 }

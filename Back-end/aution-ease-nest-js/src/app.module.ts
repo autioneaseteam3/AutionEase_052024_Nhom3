@@ -5,6 +5,9 @@ import { InspectorsModule } from './inspector/inspector.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { ResponseInterceptor } from './common/interceptors';
+import { AllExceptionsFilter } from './common/filters';
 
 @Module({
   imports: [
@@ -13,6 +16,10 @@ import { AppService } from './app.service';
     ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    { provide: APP_INTERCEPTOR, useClass: ResponseInterceptor },
+    { provide: APP_FILTER, useClass: AllExceptionsFilter },
+  ],
 })
 export class AppModule {}
