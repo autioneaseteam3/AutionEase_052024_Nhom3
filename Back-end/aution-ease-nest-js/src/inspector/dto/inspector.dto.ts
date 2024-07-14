@@ -1,24 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreateDetailInspectorDTO {
+export class InspectorDTO {
   @ApiProperty({
     name: 'inspectorID',
     type: Number,
-    description: 'The id of inspector',
-    example: 123,
+    description: 'The id of the inspector',
   })
   @IsNotEmpty()
   @IsNumber()
   inspectorID: number;
 
   @ApiProperty({
-    name: 'userID',
-    type: Number,
-    description: 'The id of user',
-    example: 123,
+    name: 'liscense',
+    type: String,
+    description: 'The license of the inspector',
   })
   @IsNotEmpty()
   @IsString()
-  userID: string;
+  liscense: string;
 }

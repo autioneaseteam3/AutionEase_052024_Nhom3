@@ -7,12 +7,20 @@ import {
   IsString,
 } from 'class-validator';
 
-export class CreateRequestDTO {
+export class RequestDTO {
+  @ApiProperty({
+    name: 'requestID',
+    type: Number,
+    description: 'The id of the request',
+  })
+  @IsNotEmpty()
+  @IsNumber()
+  requestID: number;
+
   @ApiProperty({
     name: 'nameRequest',
     type: String,
     description: 'The name of the request',
-    example: 'Test Request',
   })
   @IsNotEmpty()
   @IsString()
@@ -22,7 +30,6 @@ export class CreateRequestDTO {
     name: 'descriptionRequest',
     type: String,
     description: 'The description of the request',
-    example: 'Test Request description',
   })
   @IsOptional()
   @IsString()
@@ -32,7 +39,6 @@ export class CreateRequestDTO {
     name: 'verified',
     type: Boolean,
     description: 'The verified state of the request',
-    example: false,
   })
   @IsNotEmpty()
   @IsBoolean()
@@ -42,7 +48,6 @@ export class CreateRequestDTO {
     name: 'requestStatus',
     type: Boolean,
     description: 'The status of the request',
-    example: false,
   })
   @IsNotEmpty()
   @IsBoolean()
@@ -52,7 +57,6 @@ export class CreateRequestDTO {
     name: 'detailInspectorID',
     type: Number,
     description: 'The id of the detail inspector',
-    example: 123,
   })
   @IsNotEmpty()
   @IsNumber()
@@ -62,7 +66,6 @@ export class CreateRequestDTO {
     name: 'detailInspectorID',
     type: String,
     description: 'The id of the user',
-    example: '123',
   })
   @IsNotEmpty()
   @IsString()
@@ -72,7 +75,6 @@ export class CreateRequestDTO {
     name: 'assetID',
     type: Number,
     description: 'The id of the asset',
-    example: 123,
   })
   @IsNotEmpty()
   @IsNumber()
@@ -82,7 +84,6 @@ export class CreateRequestDTO {
     name: 'delflag',
     type: Boolean,
     description: 'The delflag of the request',
-    example: false,
   })
   @IsNotEmpty()
   @IsBoolean()

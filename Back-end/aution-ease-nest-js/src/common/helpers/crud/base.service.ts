@@ -5,7 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class BaseService<Model, CreateDTO, UpdateDTO> {
   private readonly model: string;
-  private readonly pluralModelName: string;
+  public readonly pluralModelName: string;
   private readonly modelId: string;
 
   constructor(
@@ -13,7 +13,18 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
     model: Prisma.ModelName,
   ) {
     this.model = model[0].toLocaleLowerCase() + model.slice(1);
-    this.pluralModelName = model.toLocaleLowerCase();
+    const index = this.model
+      .split('')
+      .findIndex((char) => char.toUpperCase() === char);
+
+    this.pluralModelName =
+      index !== -1
+        ? model.toLocaleLowerCase().slice(0, index) +
+          ' ' +
+          model.toLocaleLowerCase().slice(index)
+        : model.toLocaleLowerCase();
+
+    // console.log(this.pluralModelName);
     this.modelId = this.model.slice(0, model.length - 1) + 'ID';
   }
 

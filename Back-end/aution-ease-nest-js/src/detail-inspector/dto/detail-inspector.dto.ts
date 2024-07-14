@@ -1,12 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { DetailInspectors } from '@prisma/client';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreateDetailInspectorDTO {
+export class DetailInspectorDTO implements DetailInspectors {
+  @ApiProperty({
+    name: 'detailInspectorID',
+    type: Number,
+    description: 'The id of detail inspector',
+  })
+  detailInspectorID: number;
+
   @ApiProperty({
     name: 'inspectorID',
     type: Number,
     description: 'The id of inspector',
-    example: 123,
   })
   @IsNotEmpty()
   @IsNumber()
@@ -16,7 +23,6 @@ export class CreateDetailInspectorDTO {
     name: 'userID',
     type: Number,
     description: 'The id of user',
-    example: 123,
   })
   @IsNotEmpty()
   @IsString()
