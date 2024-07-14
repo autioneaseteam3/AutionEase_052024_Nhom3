@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 
-import { InspectorsService } from './inspector.service';
+import { InspectorService } from './inspector.service';
 import { CreateInspectorDTO, InspectorDTO, UpdateInspectorDTO } from './dto';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { ApiResult, Role } from 'src/common/decorators';
@@ -24,7 +24,7 @@ import { ERole } from 'src/common/enums';
 @Role(ERole.ADMIN)
 @Controller('inspectors')
 export class InspectorController {
-  constructor(protected inspectorsService: InspectorsService) {}
+  constructor(protected inspectorsService: InspectorService) {}
   @Get()
   @ApiResult(InspectorDTO, 'inspector', 'getAll')
   findAll() {

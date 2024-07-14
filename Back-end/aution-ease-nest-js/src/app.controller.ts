@@ -28,7 +28,7 @@ export class AppController {
   })
   @ApiInternalServerErrorResponse({ description: 'Something went wrong' })
   @Get()
-  getHello(): string {
+  healthCheck(): string {
     return this.appService.healthCheck();
   }
 }

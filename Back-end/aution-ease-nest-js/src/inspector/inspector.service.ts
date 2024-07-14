@@ -5,7 +5,7 @@ import { Inspectors } from '@prisma/client';
 import { BaseService } from 'src/common/helpers';
 
 @Injectable()
-export class InspectorsService extends BaseService<
+export class InspectorService extends BaseService<
   Inspectors,
   CreateInspectorDTO,
   UpdateInspectorDTO
