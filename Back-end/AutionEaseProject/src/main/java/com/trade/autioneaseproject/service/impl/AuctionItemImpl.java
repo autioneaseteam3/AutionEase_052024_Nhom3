@@ -9,12 +9,16 @@ import java.util.List;
 
 @Service
 public class AuctionItemImpl implements AuctionItemService {
-    @Autowired
-    AuctionItemDAO aidao;
-
     @Override
     public List<AuctionItem> findAll() {
-        return aidao.findAll();
+        return null;
     }
+//    @Autowired
+//    AuctionItemDAO aidao;
+//
+//    @Override
+//    public List<AuctionItem> findAll() {
+//        return aidao.findAll();
+//    }
 
 }

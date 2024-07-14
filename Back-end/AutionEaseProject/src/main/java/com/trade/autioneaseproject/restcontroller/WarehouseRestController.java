@@ -14,11 +14,11 @@ import java.util.List;
 @RequestMapping("/rest/wh")
 public class WarehouseRestController {
 
-    @Autowired
-    WarehouseDAO dao;
-
-    @GetMapping
-    public List<Warehouse> findAll(){
-        return dao.findAll();
-    }
+//    @Autowired
+//    WarehouseDAO dao;
+//
+//    @GetMapping
+//    public List<Warehouse> findAll(){
+//        return dao.findAll();
+//    }
 }

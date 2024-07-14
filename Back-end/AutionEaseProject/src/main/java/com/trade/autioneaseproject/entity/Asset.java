@@ -16,10 +16,10 @@ import java.util.List;
 public class Asset {
     @Id
     private Integer assetID;
-    private String assetName;
+    private String asset_name;
     private String mainImage;
-    private String assetDescription;
-    private Float assetPrice;
+    private String asset_description;
+    private Float asset_price;
 
     @ManyToOne
     @JoinColumn(name = "assetTypeID")
@@ -34,7 +34,7 @@ public class Asset {
     List<ImageAsset> imageAssets;
 
     @ManyToOne
-    @JoinColumn(name = "shippingStatusID")
+    @JoinColumn(name = "shipping_statusID")
     private ShippingStatus shippingStatus;
 
     private Boolean delflag;
