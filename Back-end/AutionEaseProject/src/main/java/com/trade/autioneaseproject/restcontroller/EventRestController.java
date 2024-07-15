@@ -25,7 +25,7 @@ public class EventRestController {
     }
 
     @GetMapping("{eventID}")
-    public Event findOne(@PathVariable Integer eventID){
+    public Event findOne(@PathVariable("eventID") Integer eventID){
         return eventService.findById(eventID);
     }
 

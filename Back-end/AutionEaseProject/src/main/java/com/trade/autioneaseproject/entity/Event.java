@@ -21,5 +21,6 @@ public class Event {
     private Date endTime;
     private String state;
     private String description;
-    private Boolean delflag = true;
+    private Boolean delflag;
+
 }

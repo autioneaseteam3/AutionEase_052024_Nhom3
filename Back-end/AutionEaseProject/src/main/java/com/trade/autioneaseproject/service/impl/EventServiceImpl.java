@@ -37,14 +37,10 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void delete(Integer eventID) {
-//        Optional<Event> optionalAccount = eventDAO.findById(eventID);
-//        if (optionalAccount.isPresent()) {
-//            Event event = optionalAccount.get();
-//            event.setDelflag(false); // Cập nhật trạng thái thành false
-//            eventDAO.save(event);
-//        } else {
-//            throw new RuntimeException("Envents not found with id: " + eventID);
-//        }
-        eventDAO.deleteById(eventID);
+    Event event = findById(eventID) ;
+        if(event != null){
+            event.setDelflag(false);
+            eventDAO.save(event);
+        }
     }
 }
