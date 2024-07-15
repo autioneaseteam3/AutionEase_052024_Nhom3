@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "Accounts")
 public class Account {
     @Id
-    private Integer userID;
+    private String userID;
     private String firstName;
     private String lastName;
     private String password;
