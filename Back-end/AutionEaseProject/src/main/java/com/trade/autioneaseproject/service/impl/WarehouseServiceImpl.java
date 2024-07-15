@@ -20,7 +20,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Warehouse getOne(Integer id) {
-        return warehouseDAO.getOne(id);
+        return warehouseDAO.findWarehouseById(id)
+                .orElseThrow(() -> new RuntimeException("Warehouse not found"));
     }
 
     @Override
@@ -30,7 +31,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Warehouse update(Integer id, Warehouse warehouse) {
-        Warehouse existingWarehouse = warehouseDAO.getOne(id);
+        Warehouse existingWarehouse = warehouseDAO.findWarehouseById(id)
+                        .orElseThrow(() -> new RuntimeException("Warehouse not found"));
 
         existingWarehouse.setLocation(warehouse.getLocation());
         existingWarehouse.setDelflag(warehouse.getDelflag());
@@ -40,14 +42,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public boolean delete(Integer id) {
-        try {
-            Warehouse warehouse = warehouseDAO.getOne(id);
-            warehouse.setDelflag(true);
-            warehouseDAO.save(warehouse);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+        Warehouse warehouse = warehouseDAO.findWarehouseById(id)
+                .orElseThrow(() -> new RuntimeException("Warehouse not found"));
+        warehouse.setDelflag(true);
+        warehouseDAO.save(warehouse);
+        return true;
     }
 }

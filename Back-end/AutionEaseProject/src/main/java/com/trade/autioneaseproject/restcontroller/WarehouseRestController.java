@@ -36,15 +36,10 @@ public class WarehouseRestController {
         ApiResponse<Warehouse> apiResponse = new ApiResponse<>();
         Warehouse warehouse = warehouseService.getOne(id);
 
-        if (warehouse != null){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Get warehouse success");
-            apiResponse.setData(warehouse);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Get warehouse failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Get warehouse success");
+        apiResponse.setData(warehouse);
+
         return apiResponse;
     }
 
@@ -70,32 +65,22 @@ public class WarehouseRestController {
         ApiResponse<Warehouse> apiResponse = new ApiResponse<>();
         Warehouse warehouse = warehouseService.update(id, request);
 
-        if (warehouse != null){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Update warehouse success");
-            apiResponse.setData(warehouse);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Update warehouse failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Update warehouse success");
+        apiResponse.setData(warehouse);
+
         return apiResponse;
     }
 
     @DeleteMapping("/delete/{id}")
     public ApiResponse<Boolean> delete(@PathVariable("id") Integer id){
         ApiResponse<Boolean> apiResponse = new ApiResponse<>();
-        boolean isDeleted = warehouseService.delete(id);
+        warehouseService.delete(id);
 
-        if(isDeleted){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Delete warehouse success");
-            apiResponse.setData(null);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Delete warehouse failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Delete warehouse success");
+        apiResponse.setData(null);
+
         return apiResponse;
     }
 }

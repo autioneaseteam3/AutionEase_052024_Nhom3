@@ -14,5 +14,5 @@ public interface InventoryDAO extends JpaRepository<Inventory, Integer> {
     List<Inventory> getAll();
 
     @Query("SELECT i FROM Inventory i WHERE i.inventoryID = :id AND i.delflag = false")
-    Inventory getOne(Integer id);
+    Optional<Inventory> findInventoryById(Integer id);
 }

@@ -42,15 +42,10 @@ public class InventoryRestController {
 
         Inventory inventory = inventoryService.getOne(id);
 
-        if (inventory != null){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Get inventory success");
-            apiResponse.setData(inventory);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Get all inventory failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Get inventory success");
+        apiResponse.setData(inventory);
+
         return apiResponse;
     }
 
@@ -76,32 +71,22 @@ public class InventoryRestController {
         ApiResponse<Inventory> apiResponse = new ApiResponse<>();
         Inventory inventory = inventoryService.update(id, request);
 
-        if (inventory != null){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Update inventory success");
-            apiResponse.setData(inventory);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Update inventory failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Update inventory success");
+        apiResponse.setData(inventory);
+
         return apiResponse;
     }
 
     @DeleteMapping("/delete/{id}")
     public ApiResponse<Boolean> delete(@PathVariable("id") Integer id){
         ApiResponse<Boolean> apiResponse = new ApiResponse<>();
-        boolean isDeleted = inventoryService.delete(id);
+        inventoryService.delete(id);
 
-        if (isDeleted){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Delete inventory success");
-            apiResponse.setData(null);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Delete inventory failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Delete inventory success");
+        apiResponse.setData(null);
+
         return apiResponse;
     }
 }

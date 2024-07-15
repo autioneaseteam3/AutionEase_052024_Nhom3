@@ -38,15 +38,10 @@ public class AuctionSessionRestController {
 
         AuctionSession auctionSession = auctionSessionService.getOne(id);
 
-        if (auctionSession != null){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Get auction session success");
-            apiResponse.setData(auctionSession);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Get auction session failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Get auction session success");
+        apiResponse.setData(auctionSession);
+
         return apiResponse;
     }
 
@@ -74,15 +69,10 @@ public class AuctionSessionRestController {
 
         AuctionSession auctionSession = auctionSessionService.update(id, request);
 
-        if (auctionSession != null){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Update auction session success");
-            apiResponse.setData(auctionSession);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Update auction session failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Update auction session success");
+        apiResponse.setData(auctionSession);
+
         return apiResponse;
     }
 
@@ -90,17 +80,12 @@ public class AuctionSessionRestController {
     public ApiResponse<Boolean> delete(@PathVariable("id") Integer id){
         ApiResponse<Boolean> apiResponse = new ApiResponse<>();
 
-        boolean isDeleted = auctionSessionService.delete(id);
+        auctionSessionService.delete(id);
 
-        if (isDeleted){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Delete auction session success");
-            apiResponse.setData(null);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Delete auction session failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Delete auction session success");
+        apiResponse.setData(null);
+
         return apiResponse;
     }
 }
