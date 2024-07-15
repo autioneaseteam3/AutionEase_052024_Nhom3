@@ -1,6 +1,6 @@
 package com.trade.autioneaseproject.service.impl;
 
-import com.trade.autioneaseproject.DAO.AuctionItemDAO;
+import com.trade.autioneaseproject.dao.AuctionItemDAO;
 import com.trade.autioneaseproject.entity.Asset;
 import com.trade.autioneaseproject.entity.AuctionItem;
 import com.trade.autioneaseproject.entity.AuctionSession;
