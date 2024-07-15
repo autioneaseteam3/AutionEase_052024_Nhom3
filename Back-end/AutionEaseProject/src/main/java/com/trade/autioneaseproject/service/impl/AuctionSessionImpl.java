@@ -1,6 +1,6 @@
 package com.trade.autioneaseproject.service.impl;
 
-import com.trade.autioneaseproject.DAO.AuctionSessionDAO;
+import com.trade.autioneaseproject.dao.AuctionSessionDAO;
 import com.trade.autioneaseproject.entity.AuctionSession;
 import com.trade.autioneaseproject.service.AuctionSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class AuctionSessionImpl implements AuctionSessionService {
     private AuctionSessionDAO auctionSessionDAO;
     @Override
     public List<AuctionSession> getAll() {
-        return auctionSessionDAO.getAll();
+        return auctionSessionDAO.findAll();
     }
 
     @Override
