@@ -1,7 +1,6 @@
 function AdminReportPage() {
     return (
-        <div id="content" class="bg-white/10 col-span-10 rounded-lg w-full max-h-screen overflow-y-auto">
-            
+        <div id="content" class="bg-white/10 col-span-10 rounded-lg w-full overflow-y-auto">
             <main>
                 <div class="pt-6 px-4">
                     <div className="w-full flex flex-col items-start">
