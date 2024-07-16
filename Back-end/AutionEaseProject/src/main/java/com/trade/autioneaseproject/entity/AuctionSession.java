@@ -18,5 +18,10 @@ public class AuctionSession {
     private Integer auctionSessionID;
     private Date startTime;
     private Date endTime;
+
+    @ManyToOne
+    @JoinColumn(name = "eventID")
+    private Event event;
+
     private Boolean delflag;
 }

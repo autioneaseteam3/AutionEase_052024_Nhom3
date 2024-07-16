@@ -21,6 +21,7 @@ public class AuctionItemRestController {
 
         List<AuctionItem> auctionItems = auctionItemService.getAll();
 
+        //set api
         if (auctionItems != null){
             apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Get all auction item success");
@@ -39,6 +40,7 @@ public class AuctionItemRestController {
 
         AuctionItem auctionItem = auctionItemService.getOne(id);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Get auction item success");
         apiResponse.setData(auctionItem);
@@ -50,8 +52,10 @@ public class AuctionItemRestController {
     public ApiResponse<AuctionItem> create(@RequestBody AuctionItemRequest request){
         ApiResponse<AuctionItem> apiResponse = new ApiResponse<>();
 
+        //create auction item from request body
         AuctionItem auctionItem = auctionItemService.create(request);
 
+        //set api
         if (auctionItem != null){
             apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Create auction item success");
@@ -68,8 +72,10 @@ public class AuctionItemRestController {
     public ApiResponse<AuctionItem> update(@PathVariable("id") Integer id, @RequestBody AuctionItemRequest request){
         ApiResponse<AuctionItem> apiResponse = new ApiResponse<>();
 
+        //update auction item from request body
         AuctionItem auctionItem = auctionItemService.update(id, request);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Update auction item success");
         apiResponse.setData(auctionItem);
@@ -83,6 +89,7 @@ public class AuctionItemRestController {
 
         auctionItemService.delete(id);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Delete auction item success");
         apiResponse.setData(null);

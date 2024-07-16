@@ -19,6 +19,7 @@ public class WarehouseRestController {
         ApiResponse<List<Warehouse>> apiResponse = new ApiResponse<>();
         List<Warehouse> warehouses = warehouseService.getAll();
 
+        //set api
         if (warehouses != null){
             apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Get all warehouse success");
@@ -36,6 +37,7 @@ public class WarehouseRestController {
         ApiResponse<Warehouse> apiResponse = new ApiResponse<>();
         Warehouse warehouse = warehouseService.getOne(id);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Get warehouse success");
         apiResponse.setData(warehouse);
@@ -46,8 +48,11 @@ public class WarehouseRestController {
     @PostMapping("/create")
     public ApiResponse<Warehouse> create(@RequestBody Warehouse request){
         ApiResponse<Warehouse> apiResponse = new ApiResponse<>();
+
+        //create warehouse from request body
         Warehouse warehouse = warehouseService.create(request);
 
+        //set api
         if (warehouse != null){
             apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Create warehouse success");
@@ -63,8 +68,11 @@ public class WarehouseRestController {
     @PutMapping("/update/{id}")
     public ApiResponse<Warehouse> update(@PathVariable("id") Integer id, @RequestBody Warehouse request){
         ApiResponse<Warehouse> apiResponse = new ApiResponse<>();
+
+        //update warehouse from request body
         Warehouse warehouse = warehouseService.update(id, request);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Update warehouse success");
         apiResponse.setData(warehouse);
@@ -77,6 +85,7 @@ public class WarehouseRestController {
         ApiResponse<Boolean> apiResponse = new ApiResponse<>();
         warehouseService.delete(id);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Delete warehouse success");
         apiResponse.setData(null);

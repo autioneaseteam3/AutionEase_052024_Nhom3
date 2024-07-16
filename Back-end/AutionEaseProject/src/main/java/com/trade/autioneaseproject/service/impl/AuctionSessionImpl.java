@@ -20,8 +20,8 @@ public class AuctionSessionImpl implements AuctionSessionService {
 
     @Override
     public AuctionSession getOne(Integer id) {
-        return auctionSessionDAO.findAuctionSessionByIy(id)
-                .orElseThrow(() -> new RuntimeException("Auction session not found"));
+        return auctionSessionDAO.findAuctionSessionById(id)
+                .orElseThrow(() -> new RuntimeException("Auction session not found")); //Return exception if not found
     }
 
     @Override
@@ -31,9 +31,10 @@ public class AuctionSessionImpl implements AuctionSessionService {
 
     @Override
     public AuctionSession update(Integer id, AuctionSession auctionSession) {
-        AuctionSession existingAuctionSession = auctionSessionDAO.findAuctionSessionByIy(id)
-                .orElseThrow(() -> new RuntimeException("Auction session not found"));
+        AuctionSession existingAuctionSession = auctionSessionDAO.findAuctionSessionById(id)
+                .orElseThrow(() -> new RuntimeException("Auction session not found")); //Return exception if not found
 
+        //set data for AuctionSession
         existingAuctionSession.setStartTime(auctionSession.getStartTime());
         existingAuctionSession.setEndTime(auctionSession.getEndTime());
         existingAuctionSession.setDelflag(auctionSession.getDelflag());
@@ -43,10 +44,10 @@ public class AuctionSessionImpl implements AuctionSessionService {
 
     @Override
     public boolean delete(Integer id) {
-        AuctionSession auctionSession = auctionSessionDAO.findAuctionSessionByIy(id)
-                .orElseThrow(() -> new RuntimeException("Auction session not found"));
+        AuctionSession auctionSession = auctionSessionDAO.findAuctionSessionById(id)
+                .orElseThrow(() -> new RuntimeException("Auction session not found")); //Return exception if not found
 
-        auctionSession.setDelflag(true);
+        auctionSession.setDelflag(true); //update delflag is true
         auctionSessionDAO.save(auctionSession);
         return true;
     }
