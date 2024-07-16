@@ -83,7 +83,7 @@ const icon = [
     />
   </svg>,
 ];
-function ItemNavBar({ content, numberIcon, href }) {
+function ItemNavBar({ content, numberIcon, href}) {
   return (
     <Link
       to={href}
@@ -92,7 +92,7 @@ function ItemNavBar({ content, numberIcon, href }) {
       <div class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
         <div>{icon[numberIcon]}</div>
         <div>
-          <p class="font-bold text-sm lg:text-sm text-white leading-4 group-hover:text-indigo-400">
+          <p class="font-bold text-sm lg:text-sm  leading-4 group-hover:text-indigo-400">
             {content}
           </p>
         </div>

@@ -10,7 +10,7 @@ function NavBarAdmin() {
     {
       content: "Staff",
       numberItem: 1,
-      href: "/"
+      href: "/Admin/Staffs"
     },
     {
       content: "User",
@@ -20,7 +20,7 @@ function NavBarAdmin() {
     {
       content: "Suplier",
       numberItem: 1,
-      href: "/"
+      href: "/Admin/Supliers"
     },
     {
       content: "News",
@@ -30,44 +30,44 @@ function NavBarAdmin() {
     {
       content: "Events",
       numberItem: 2,
-      href: "/"
+      href: "/Admin/Events"
     },
     {
       content: "Taxs",
       numberItem: 2,
-      href: "/"
+      href: "/Admin/Taxs"
     },
     {
       content: "Assets type",
       numberItem: 3,
-      href: "/"
+      href: "/Admin/Assetstype"
     },
     {
       content: "Assets",
       numberItem: 3,
-      href: "/"
+      href: "/Admin/Assets"
     },
     {
-      content: "Ware Home",
+      content: "Ware Houses",
       numberItem: 3,
-      href: "/"
+      href: "/Admin/WareHouses"
     },
     {
       content: "Aution",
       numberItem: 4,
-      href: "/"
+      href: "/Admin/Autions"
     },
     {
       content: "Requests",
       numberItem: 4,
-      href: "/"
+      href: "/Admin/Requests"
     },
     {
       content: "Bills",
       numberItem: 4,
-      href: "/"
+      href: "/Admin/Bills"
     },
-  ];
+  ]; 
   return (
     <div id="menu" class="bg-[#ff4949] min-h-[1500px] col-span-2 rounded-lg p-4 flex flex-col">
       <div className="px-[40px] flex flex-col justify-center items-center">
