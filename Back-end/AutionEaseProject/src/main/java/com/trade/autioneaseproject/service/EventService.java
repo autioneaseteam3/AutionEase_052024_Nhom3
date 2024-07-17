@@ -3,6 +3,7 @@ package com.trade.autioneaseproject.service;
 import com.trade.autioneaseproject.entity.Event;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EventService {
 
@@ -13,8 +14,11 @@ public interface EventService {
 
     Event create(Event event);
 
-    Event update(Event event);
+    Event update(Integer eventID, Event event);
 
-    void delete(Integer eventID);
+    boolean delete(Integer eventID);
+
+
+    boolean isEventNameUnique(String eventName);
 
 }

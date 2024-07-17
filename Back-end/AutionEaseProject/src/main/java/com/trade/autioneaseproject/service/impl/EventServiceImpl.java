@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -20,9 +21,9 @@ public class EventServiceImpl implements EventService {
         return eventDAO.findAll();
     }
 
-    @Override
     public Event findById(Integer eventID) {
-        return eventDAO.findAllByEventID(eventID);
+        Optional<Event> event = eventDAO.findById(eventID);
+        return event.orElse(null);
     }
 
     @Override
@@ -31,16 +32,20 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event update(Event event) {
+    public Event update(Integer eventID, Event event) {
         return eventDAO.save(event);
     }
 
     @Override
-    public void delete(Integer eventID) {
+    public boolean delete(Integer eventID) {
     Event event = findById(eventID) ;
         if(event != null){
             event.setDelflag(false);
             eventDAO.save(event);
         }
+        return false;
+    }
+    public boolean isEventNameUnique(String eventName) {
+        return eventDAO.findByEventNameIgnoreCase(eventName).isEmpty();
     }
 }
