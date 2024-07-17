@@ -1,4 +1,4 @@
-package com.trade.autioneaseproject.DAO;
+package com.trade.autioneaseproject.dao;
 
 import com.trade.autioneaseproject.entity.AuctionItem;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
 package com.trade.autioneaseproject.service.impl;
 
-import com.trade.autioneaseproject.DAO.WarehouseDAO;
+import com.trade.autioneaseproject.dao.WarehouseDAO;
 import com.trade.autioneaseproject.entity.Warehouse;
 import com.trade.autioneaseproject.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public Warehouse getOne(Integer id) {
         return warehouseDAO.findWarehouseById(id)
-                .orElseThrow(() -> new RuntimeException("Warehouse not found"));
+                .orElseThrow(() -> new RuntimeException("Warehouse not found")); //Return exception if not found
     }
 
     @Override
@@ -32,7 +32,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public Warehouse update(Integer id, Warehouse warehouse) {
         Warehouse existingWarehouse = warehouseDAO.findWarehouseById(id)
-                        .orElseThrow(() -> new RuntimeException("Warehouse not found"));
+                        .orElseThrow(() -> new RuntimeException("Warehouse not found")); //Return exception if not found
 
         existingWarehouse.setLocation(warehouse.getLocation());
         existingWarehouse.setDelflag(warehouse.getDelflag());
@@ -43,8 +43,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public boolean delete(Integer id) {
         Warehouse warehouse = warehouseDAO.findWarehouseById(id)
-                .orElseThrow(() -> new RuntimeException("Warehouse not found"));
-        warehouse.setDelflag(true);
+                .orElseThrow(() -> new RuntimeException("Warehouse not found")); //Return exception if not found
+        warehouse.setDelflag(true); //update delflag is true
         warehouseDAO.save(warehouse);
         return true;
     }

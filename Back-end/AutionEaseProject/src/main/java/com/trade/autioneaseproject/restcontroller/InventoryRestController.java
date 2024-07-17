@@ -1,7 +1,7 @@
 package com.trade.autioneaseproject.restcontroller;
 
 
-import com.trade.autioneaseproject.DAO.InventoryDAO;
+import com.trade.autioneaseproject.dao.InventoryDAO;
 import com.trade.autioneaseproject.entity.Inventory;
 import com.trade.autioneaseproject.request.ApiResponse;
 import com.trade.autioneaseproject.service.InventoryService;
@@ -24,6 +24,7 @@ public class InventoryRestController {
 
         List<Inventory> inventories = inventoryService.getAll();
 
+        //set api
         if (inventories != null){
             apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Get all inventory success");
@@ -42,6 +43,7 @@ public class InventoryRestController {
 
         Inventory inventory = inventoryService.getOne(id);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Get inventory success");
         apiResponse.setData(inventory);
@@ -52,8 +54,11 @@ public class InventoryRestController {
     @PostMapping("/create")
     public ApiResponse<Inventory> create(@RequestBody Inventory request){
         ApiResponse<Inventory> apiResponse = new ApiResponse<>();
+
+        //create inventory from request body
         Inventory inventory = inventoryService.create(request);
 
+        //set api
         if (inventory != null){
             apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Create inventory success");
@@ -69,8 +74,11 @@ public class InventoryRestController {
     @PutMapping("update/{id}")
     public ApiResponse<Inventory> update(@PathVariable("id") Integer id, @RequestBody Inventory request){
         ApiResponse<Inventory> apiResponse = new ApiResponse<>();
+
+        //update inventory from request body
         Inventory inventory = inventoryService.update(id, request);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Update inventory success");
         apiResponse.setData(inventory);
@@ -83,6 +91,7 @@ public class InventoryRestController {
         ApiResponse<Boolean> apiResponse = new ApiResponse<>();
         inventoryService.delete(id);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Delete inventory success");
         apiResponse.setData(null);

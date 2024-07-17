@@ -20,6 +20,7 @@ public class AuctionSessionRestController {
 
         List<AuctionSession> auctionSessionList = auctionSessionService.getAll();
 
+        //set api
         if (auctionSessionList != null){
             apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Get all auction session success");
@@ -38,6 +39,7 @@ public class AuctionSessionRestController {
 
         AuctionSession auctionSession = auctionSessionService.getOne(id);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Get auction session success");
         apiResponse.setData(auctionSession);
@@ -49,8 +51,10 @@ public class AuctionSessionRestController {
     public ApiResponse<AuctionSession> create(@RequestBody AuctionSession request){
         ApiResponse<AuctionSession> apiResponse = new ApiResponse<>();
 
+        //create auction session from request body
         AuctionSession auctionSession = auctionSessionService.create(request);
 
+        //set api
         if (auctionSession != null){
             apiResponse.setStatus(HttpStatus.OK.value());
             apiResponse.setMessage("Create auction session success");
@@ -67,8 +71,10 @@ public class AuctionSessionRestController {
     public ApiResponse<AuctionSession> update(@PathVariable("id") Integer id, @RequestBody AuctionSession request){
         ApiResponse<AuctionSession> apiResponse = new ApiResponse<>();
 
+        //update auction item from request body
         AuctionSession auctionSession = auctionSessionService.update(id, request);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Update auction session success");
         apiResponse.setData(auctionSession);
@@ -82,6 +88,7 @@ public class AuctionSessionRestController {
 
         auctionSessionService.delete(id);
 
+        //set api
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setMessage("Delete auction session success");
         apiResponse.setData(null);
