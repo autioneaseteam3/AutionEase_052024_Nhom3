@@ -3,6 +3,7 @@ package com.trade.autioneaseproject.restcontroller;
 import com.trade.autioneaseproject.entity.Warehouse;
 import com.trade.autioneaseproject.request.ApiResponse;
 import com.trade.autioneaseproject.service.WarehouseService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class WarehouseRestController {
             apiResponse.setMessage("Get all warehouse failed");
             apiResponse.setData(null);
         }
+
         return apiResponse;
     }
 
@@ -53,15 +55,9 @@ public class WarehouseRestController {
         Warehouse warehouse = warehouseService.create(request);
 
         //set api
-        if (warehouse != null){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Create warehouse success");
-            apiResponse.setData(warehouse);
-        } else {
-            apiResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            apiResponse.setMessage("Create warehouse failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Create warehouse success");
+        apiResponse.setData(warehouse);
         return apiResponse;
     }
 

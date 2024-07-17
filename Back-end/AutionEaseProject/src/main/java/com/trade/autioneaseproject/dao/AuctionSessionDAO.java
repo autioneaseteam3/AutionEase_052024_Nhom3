@@ -10,9 +10,9 @@ import java.util.Optional;
 public interface AuctionSessionDAO extends JpaRepository<AuctionSession, Integer> {
 
     //Retrieve only non-deleted data
-    @Query("SELECT a FROM AuctionSession a WHERE a.delflag = false")
+    @Query("SELECT a FROM AuctionSession a WHERE a.delflag = true")
     List<AuctionSession> getAll();
 
-    @Query("SELECT a FROM AuctionSession a WHERE a.auctionSessionID = :id AND a.delflag = false")
+    @Query("SELECT a FROM AuctionSession a WHERE a.auctionSessionID = :id AND a.delflag = true")
     Optional<AuctionSession> findAuctionSessionById(Integer id);
 }

@@ -12,9 +12,9 @@ import java.util.Optional;
 public interface InventoryDAO extends JpaRepository<Inventory, Integer> {
 
     //Retrieve only non-deleted data
-    @Query("SELECT i FROM Inventory i WHERE i.delflag = false")
+    @Query("SELECT i FROM Inventory i WHERE i.delflag = true")
     List<Inventory> getAll();
 
-    @Query("SELECT i FROM Inventory i WHERE i.inventoryID = :id AND i.delflag = false")
+    @Query("SELECT i FROM Inventory i WHERE i.inventoryID = :id AND i.delflag = true")
     Optional<Inventory> findInventoryById(Integer id);
 }
