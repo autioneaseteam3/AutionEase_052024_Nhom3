@@ -1,6 +1,6 @@
 package com.trade.autioneaseproject.service.impl;
 
-import com.trade.autioneaseproject.DAO.AuctionItemDAO;
+import com.trade.autioneaseproject.dao.AuctionItemDAO;
 import com.trade.autioneaseproject.entity.Asset;
 import com.trade.autioneaseproject.entity.AuctionItem;
 import com.trade.autioneaseproject.entity.AuctionSession;
@@ -23,12 +23,13 @@ public class AuctionItemServiceImpl implements AuctionItemService {
     @Override
     public AuctionItem getOne(Integer id) {
         return auctionItemDAO.findAuctionItemById(id)
-                .orElseThrow(() -> new RuntimeException("Auction item not found"));
+                .orElseThrow(() -> new RuntimeException("Auction item not found")); //Return exception if not found
     }
 
     @Override
     public AuctionItem create(AuctionItemRequest request) {
 
+        //set data for AuctionItem from AuctionItemRequest
         AuctionItem auctionItem = new AuctionItem();
         auctionItem.setAuctionSession(new AuctionSession());
         auctionItem.getAuctionSession().setAuctionSessionID(request.getAuctionSessionID());
@@ -46,8 +47,9 @@ public class AuctionItemServiceImpl implements AuctionItemService {
     @Override
     public AuctionItem update(Integer id, AuctionItemRequest request) {
         AuctionItem auctionItem = auctionItemDAO.findAuctionItemById(id)
-                .orElseThrow(() -> new RuntimeException("Auction item not found"));
+                .orElseThrow(() -> new RuntimeException("Auction item not found")); //Return exception if not found
 
+        //set data for AuctionItem from AuctionItemRequest
         auctionItem.setAuctionSession(new AuctionSession());
         auctionItem.getAuctionSession().setAuctionSessionID(request.getAuctionSessionID());
 
@@ -64,8 +66,8 @@ public class AuctionItemServiceImpl implements AuctionItemService {
     @Override
     public boolean delete(Integer id) {
         AuctionItem auctionItem = auctionItemDAO.findAuctionItemById(id)
-                .orElseThrow(() -> new RuntimeException("Auction item not found"));
-        auctionItem.setDelflag(true);
+                .orElseThrow(() -> new RuntimeException("Auction item not found")); //Return exception if not found
+        auctionItem.setDelflag(true); //update delflag is true
         auctionItemDAO.save(auctionItem);
         return true;
     }
