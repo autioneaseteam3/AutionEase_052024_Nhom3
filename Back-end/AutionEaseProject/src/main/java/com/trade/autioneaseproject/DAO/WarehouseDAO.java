@@ -1,4 +1,4 @@
-package com.trade.autioneaseproject.DAO;
+package com.trade.autioneaseproject.dao;
 
 import com.trade.autioneaseproject.entity.Warehouse;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,6 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface WarehouseDAO extends JpaRepository<Warehouse, Integer> {
+
+    //Retrieve only non-deleted data
     @Query("SELECT w FROM Warehouse w WHERE w.delflag = false")
     List<Warehouse> getAll();
 
