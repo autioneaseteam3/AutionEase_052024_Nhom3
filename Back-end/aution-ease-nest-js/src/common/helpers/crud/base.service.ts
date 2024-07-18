@@ -25,7 +25,8 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
         : model.toLocaleLowerCase();
 
     // console.log(this.pluralModelName);
-    this.modelId = this.model.slice(0, model.length - 1) + 'ID';
+    const nameModel = this.model.slice(0, model.length - 1);
+    this.modelId = nameModel === 'account' ? 'userID' : nameModel + 'ID';
   }
 
   findAll(): Promise<Model[]> {
@@ -33,7 +34,7 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
     return this.prisma[this.model].findMany();
   }
 
-  async findOne(id: number): Promise<Model> {
+  async findOne(id: number | string): Promise<Model> {
     const data = await this.prisma[this.model].findUnique({
       where: {
         [this.modelId]: id,
@@ -54,7 +55,7 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
     });
   }
 
-  async update(id: number, dto: UpdateDTO): Promise<Model> {
+  async update(id: number | string, dto: UpdateDTO): Promise<Model> {
     const updatedData = await this.prisma[this.model].update({
       where: {
         [this.modelId]: id,
@@ -65,7 +66,7 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
     return updatedData;
   }
 
-  async delete(id: number): Promise<null> {
+  async delete(id: number | string): Promise<null> {
     await this.prisma[this.model].delete({
       where: {
         [this.modelId]: id,

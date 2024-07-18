@@ -11,6 +11,7 @@ import { AllExceptionsFilter } from './common/filters';
 import { SharedModule } from './shared/shared.module';
 import { RequestModule } from './request/request.module';
 import { DetailInspectorModule } from './detail-inspector/detail-inspector.module';
+import { AccountModule } from './account/account.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { DetailInspectorModule } from './detail-inspector/detail-inspector.modul
     ConfigModule.forRoot({ isGlobal: true }),
     SharedModule,
     RequestModule,
+    AccountModule,
     DetailInspectorModule,
   ],
   controllers: [AppController],
