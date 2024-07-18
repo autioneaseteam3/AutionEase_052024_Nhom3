@@ -30,7 +30,8 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
     );
 
     // console.log(this.pluralModelName);
-    this.modelId = this.model.slice(0, model.length - 1) + 'ID';
+    const nameModel = this.model.slice(0, model.length - 1);
+    this.modelId = nameModel === 'account' ? 'userID' : nameModel + 'ID';
   }
 
   async findAll() {
@@ -41,7 +42,8 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
     };
   }
 
-  async findOne(id: number) {
+
+  async findOne(id: number | string) {
     const data = await this.prisma[this.model].findUnique({
       where: {
         [this.modelId]: id,
@@ -68,7 +70,8 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
     };
   }
 
-  async update(id: number, dto: UpdateDTO) {
+
+  async update(id: number | string, dto: UpdateDTO) {
     const updatedData = await this.prisma[this.model].update({
       where: {
         [this.modelId]: id,
@@ -82,7 +85,8 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
     };
   }
 
-  async delete(id: number) {
+
+  async delete(id: number | string) {
     await this.prisma[this.model].delete({
       where: {
         [this.modelId]: id,
