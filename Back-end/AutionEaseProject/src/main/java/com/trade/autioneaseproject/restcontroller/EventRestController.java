@@ -19,12 +19,12 @@ public class EventRestController {
     @Autowired
     private EventService eventService;
 
-    @GetMapping
+    @GetMapping("/findAll")
     public List<Event> findAll() {
         return eventService.findAll();
     }
 
-    @GetMapping("{eventID}")
+    @GetMapping("/findOne/{eventID}")
     public ApiResponse<Event> findOne(@PathVariable("eventID") Integer eventID) {
         ApiResponse<Event> response = new ApiResponse<>();
         Event event = eventService.findById(eventID);
@@ -40,7 +40,7 @@ public class EventRestController {
         return response;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ApiResponse<Event> create(@Valid @RequestBody Event event) {
         ApiResponse<Event> response = new ApiResponse<>();
         boolean isUnique = eventService.isEventNameUnique(event.getEventName());
@@ -59,7 +59,7 @@ public class EventRestController {
         return response;
     }
 
-    @PutMapping("{eventID}")
+    @PutMapping("/update/{eventID}")
     public ApiResponse<Event> updateEvent(@PathVariable("eventID") Integer eventID, @Valid @RequestBody Event event) {
         ApiResponse<Event> response = new ApiResponse<>();
         Event existingEvent = eventService.findById(eventID);
@@ -87,7 +87,7 @@ public class EventRestController {
         return response;
     }
 
-    @DeleteMapping("{eventID}")
+    @DeleteMapping("/delete/{eventID}")
     public ApiResponse<Event> deleteEvent(@PathVariable("eventID") Integer eventID) {
         ApiResponse<Event> response = new ApiResponse<>();
         Event event = eventService.findById(eventID);

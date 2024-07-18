@@ -1,4 +1,4 @@
-package com.trade.autioneaseproject.controller;
+package com.trade.autioneaseproject.restcontroller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,7 +56,7 @@ public class EventRestControllerTest {
 
         when(eventService.findAll()).thenReturn(events);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/rest/event"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/event/findAll"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()").value(events.size()));
     }
@@ -67,7 +67,7 @@ public class EventRestControllerTest {
 
         when(eventService.findById(1)).thenReturn(event);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/rest/event/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/event/findOne/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.eventName").value(event.getEventName()));
     }
@@ -81,7 +81,7 @@ public class EventRestControllerTest {
 
         String jsonEvent = objectMapper.writeValueAsString(event);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/rest/event")
+        mockMvc.perform(MockMvcRequestBuilders.post("/rest/event/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonEvent))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -99,7 +99,7 @@ public class EventRestControllerTest {
 
         String jsonEvent = objectMapper.writeValueAsString(updatedEvent);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/rest/event/1")
+        mockMvc.perform(MockMvcRequestBuilders.put("/rest/event/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonEvent))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -114,7 +114,7 @@ public class EventRestControllerTest {
         when(eventService.findById(1)).thenReturn(event);
         when(eventService.update(eq(1), any(Event.class))).thenReturn(event);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/rest/event/1"))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/rest/event/delete/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Event marked as deleted"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.eventName").value(event.getEventName()));
