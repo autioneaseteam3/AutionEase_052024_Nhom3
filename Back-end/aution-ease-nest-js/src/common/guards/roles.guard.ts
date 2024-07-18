@@ -21,12 +21,13 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
+    console.log(this.accessControlService.hierarchies);
 
     if (!roleMeta) return false;
 
     // * don't implement auth yet so we can make it to role of user just for test it work or not
     const currentRole =
-      context.switchToHttp().getRequest()?.user?.role || 'user';
+      context.switchToHttp().getRequest()?.user?.role || 'Admin';
 
     return this.accessControlService.isAuthorized(currentRole, roleMeta);
   }

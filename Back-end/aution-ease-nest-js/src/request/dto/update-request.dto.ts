@@ -53,7 +53,7 @@ export class UpdateRequestDTO {
   detailInspectorID: number;
 
   @ApiProperty({
-    name: 'detailInspectorID',
+    name: 'userID',
     type: String,
     description: 'The id of the user',
     example: '123',
