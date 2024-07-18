@@ -105,15 +105,17 @@ class AssetStatusController extends Controller
     public function destroy($id)
     {
         $assetStatus = AssetStatus::find($id);
-
+    
         if (!$assetStatus) {
             return response()->json(['error' => 'Asset Status not found.'], 404);
         }
-
-        $assetStatus->delete();
-
+    
+        $assetStatus->delflag = 1;
+        $assetStatus->save();
+    
         return response()->json(['message' => 'Asset Status deleted successfully'], 200);
     }
+    
 
     /**
      * Restore the specified asset status from soft delete.

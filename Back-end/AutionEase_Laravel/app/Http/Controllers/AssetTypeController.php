@@ -132,7 +132,8 @@ class AssetTypeController extends Controller
         if (!$assetType) {
             return response()->json(['error' => 'Asset Type not found.'], 404);
         }
-
+        
+        $assetStatus->delflag = 1;
         $assetType->restore();
 
         return response()->json([
