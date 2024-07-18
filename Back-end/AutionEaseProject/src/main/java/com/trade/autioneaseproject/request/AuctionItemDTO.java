@@ -1,13 +1,15 @@
 package com.trade.autioneaseproject.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuctionItemRequest {
+@Builder
+public class AuctionItemDTO {
     private Integer auctionItemID;
     private Integer auctionSessionID;
     private Integer assetID;

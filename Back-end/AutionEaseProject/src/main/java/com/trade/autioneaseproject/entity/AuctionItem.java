@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter @Setter
 @Entity
-@Table(name = "auctionitems")
+@Table(name = "Auctionitems")
 public class AuctionItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +24,5 @@ public class AuctionItem {
 
     private Float startingBids;
     private Float bidIncrement;
-    private Boolean delflag;
+    private boolean delflag;
 }

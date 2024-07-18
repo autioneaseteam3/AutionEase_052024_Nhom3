@@ -2,7 +2,7 @@ package com.trade.autioneaseproject.restcontroller;
 
 import com.trade.autioneaseproject.entity.AuctionItem;
 import com.trade.autioneaseproject.request.ApiResponse;
-import com.trade.autioneaseproject.request.AuctionItemRequest;
+import com.trade.autioneaseproject.request.AuctionItemDTO;
 import com.trade.autioneaseproject.service.AuctionItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,29 +16,23 @@ public class AuctionItemRestController {
     @Autowired
     private AuctionItemService auctionItemService;
     @GetMapping("/get-all")
-    public ApiResponse<List<AuctionItem>> getAll(){
-        ApiResponse<List<AuctionItem>> apiResponse= new ApiResponse<>();
+    public ApiResponse<List<AuctionItemDTO>> getAll(){
+        ApiResponse<List<AuctionItemDTO>> apiResponse= new ApiResponse<>();
 
-        List<AuctionItem> auctionItems = auctionItemService.getAll();
+        List<AuctionItemDTO> auctionItems = auctionItemService.getAll();
 
-        //set api
-        if (auctionItems != null){
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Get all auction item success");
-            apiResponse.setData(auctionItems);
-        } else {
-            apiResponse.setStatus(HttpStatus.OK.value());
-            apiResponse.setMessage("Get all auction item failed");
-            apiResponse.setData(null);
-        }
+        apiResponse.setStatus(HttpStatus.OK.value());
+        apiResponse.setMessage("Get all auction item success");
+        apiResponse.setData(auctionItems);
+
         return apiResponse;
     }
 
     @GetMapping("/get-one/{id}")
-    public ApiResponse<AuctionItem> getOne(@PathVariable("id") Integer id){
-        ApiResponse<AuctionItem> apiResponse = new ApiResponse<>();
+    public ApiResponse<AuctionItemDTO> getOne(@PathVariable("id") Integer id){
+        ApiResponse<AuctionItemDTO> apiResponse = new ApiResponse<>();
 
-        AuctionItem auctionItem = auctionItemService.getOne(id);
+        AuctionItemDTO auctionItem = auctionItemService.getOne(id);
 
         //set api
         apiResponse.setStatus(HttpStatus.OK.value());
@@ -49,11 +43,11 @@ public class AuctionItemRestController {
     }
 
     @PostMapping("/create")
-    public ApiResponse<AuctionItem> create(@RequestBody AuctionItemRequest request){
-        ApiResponse<AuctionItem> apiResponse = new ApiResponse<>();
+    public ApiResponse<AuctionItemDTO> create(@RequestBody AuctionItemDTO request){
+        ApiResponse<AuctionItemDTO> apiResponse = new ApiResponse<>();
 
         //create auction item from request body
-        AuctionItem auctionItem = auctionItemService.create(request);
+        AuctionItemDTO auctionItem = auctionItemService.create(request);
 
         //set api
         if (auctionItem != null){
@@ -69,11 +63,11 @@ public class AuctionItemRestController {
     }
 
     @PutMapping("/update/{id}")
-    public ApiResponse<AuctionItem> update(@PathVariable("id") Integer id, @RequestBody AuctionItemRequest request){
-        ApiResponse<AuctionItem> apiResponse = new ApiResponse<>();
+    public ApiResponse<AuctionItemDTO> update(@PathVariable("id") Integer id, @RequestBody AuctionItemDTO request){
+        ApiResponse<AuctionItemDTO> apiResponse = new ApiResponse<>();
 
         //update auction item from request body
-        AuctionItem auctionItem = auctionItemService.update(id, request);
+        AuctionItemDTO auctionItem = auctionItemService.update(id, request);
 
         //set api
         apiResponse.setStatus(HttpStatus.OK.value());

@@ -12,9 +12,9 @@ import java.util.Optional;
 public interface WarehouseDAO extends JpaRepository<Warehouse, Integer> {
 
     //Retrieve only non-deleted data
-    @Query("SELECT w FROM Warehouse w WHERE w.delflag = false")
+    @Query("SELECT w FROM Warehouse w WHERE w.delflag = true")
     List<Warehouse> getAll();
 
-    @Query("SELECT w FROM Warehouse w WHERE w.warehouseID = :id AND w.delflag = false")
+    @Query("SELECT w FROM Warehouse w WHERE w.warehouseID = :id AND w.delflag = true")
     Optional<Warehouse> findWarehouseById(Integer id);
 }

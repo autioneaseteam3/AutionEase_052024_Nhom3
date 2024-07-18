@@ -10,11 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface AuctionItemDAO extends JpaRepository<AuctionItem, Integer> {
-
     //Retrieve only non-deleted data
-    @Query("SELECT a FROM AuctionItem a WHERE a.delflag = false")
+    @Query("SELECT a FROM AuctionItem a WHERE a.delflag = true")
     List<AuctionItem> getAll();
 
-    @Query("SELECT a FROM AuctionItem a WHERE a.auctionItemID = :id AND a.delflag = false")
+    @Query("SELECT a FROM AuctionItem a WHERE a.auctionItemID = :id AND a.delflag = true")
     Optional<AuctionItem> findAuctionItemById(Integer id);
 }

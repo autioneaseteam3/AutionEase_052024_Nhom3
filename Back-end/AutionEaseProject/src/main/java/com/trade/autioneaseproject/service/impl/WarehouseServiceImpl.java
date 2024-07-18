@@ -3,12 +3,14 @@ package com.trade.autioneaseproject.service.impl;
 import com.trade.autioneaseproject.dao.WarehouseDAO;
 import com.trade.autioneaseproject.entity.Warehouse;
 import com.trade.autioneaseproject.service.WarehouseService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class WarehouseServiceImpl implements WarehouseService {
 
     @Autowired
@@ -26,6 +28,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Warehouse create(Warehouse warehouse) {
+        log.info("Controller");
         return this.warehouseDAO.save(warehouse);
     }
 
@@ -44,7 +47,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public boolean delete(Integer id) {
         Warehouse warehouse = warehouseDAO.findWarehouseById(id)
                 .orElseThrow(() -> new RuntimeException("Warehouse not found")); //Return exception if not found
-        warehouse.setDelflag(true); //update delflag is true
+        warehouse.setDelflag(false); //update delflag is false
         warehouseDAO.save(warehouse);
         return true;
     }
