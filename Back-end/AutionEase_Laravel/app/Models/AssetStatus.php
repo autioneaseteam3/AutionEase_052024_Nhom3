@@ -11,7 +11,8 @@ class AssetStatus extends Model
 
     protected $table = 'AssetStatuses';
     protected $primaryKey = 'assetStatusID';
-
+    public $timestamps = false;
+    
     protected $fillable = [
         'assetStatusName', 'delflag'
     ];

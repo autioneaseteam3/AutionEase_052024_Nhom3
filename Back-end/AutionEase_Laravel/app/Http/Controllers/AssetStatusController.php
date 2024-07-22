@@ -26,34 +26,42 @@ class AssetStatusController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'assetStatusID' => 'required|string|max:255|unique:AssetStatuses,assetStatusID',
-        'assetStatusName' => 'required|string|max:255|in:online,offline',
-        'delflag' => 'required|boolean',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json(['error' => $validator->errors()], 400);
-    }
-
-    try {
-        $data = $request->only(['assetStatusID', 'assetStatusName', 'delflag']);
-        $assetStatus =  AssetStatus::create($data);
-
-        return response()->json([
-            'message' => 'Asset Status created successfully',
-            'data' => $assetStatus,
-        ], 201);
-    } catch (\Exception $e) {
-        \Log::error('Failed to create asset status: ' . $e->getMessage(), [
-            'exception' => $e,
-            'data' => $request->all(),
+    {
+        $validator = Validator::make($request->all(), [
+            'assetStatusID' => 'required|string|max:255|unique:AssetStatuses,assetStatusID',
+            'assetStatusName' => 'required|string|max:255|in:online,offline',
+            'delflag' => 'required|boolean',
         ]);
 
-        return response()->json(['error' => 'Failed to create asset status.'], 500);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $data = $validator->validated();
+
+        // Log incoming request data and validated data
+        \Log::info('Request Data: ', $request->all());
+        \Log::info('Validated Data: ', $data);
+
+        try {
+            $assetStatus = AssetStatus::create($data);
+
+            return response()->json([
+                'message' => 'Asset Status created successfully',
+                'data' => $assetStatus,
+            ], 201);
+        } catch (\Illuminate\Database\QueryException $qe) {
+            // Log specific query exception
+            \Log::error('QueryException: ' . $qe->getMessage());
+            \Log::error('Trace: ' . $qe->getTraceAsString());
+            return response()->json(['error' => 'Database error. Please check the logs for more details.'], 500);
+        } catch (\Exception $e) {
+            // Log general exception
+            \Log::error('Exception: ' . $e->getMessage());
+            \Log::error('Trace: ' . $e->getTraceAsString());
+            return response()->json(['error' => 'Failed to create asset status. Please check the logs for more details.'], 500);
+        }
     }
-}
 
 
     /**
