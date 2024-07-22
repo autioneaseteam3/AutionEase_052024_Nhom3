@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AssetTypeController;
 use App\Http\Controllers\AssetStatusController;
+use App\Http\Controllers\AuctionItemController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,5 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('assetTypes', AssetTypeController::class);
+Route::resource('auctionItems', AuctionItemController::class);
 
 Route::resource('assetStatuses', AssetStatusController::class);

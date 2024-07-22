@@ -26,34 +26,43 @@ class AssetTypeController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'assetTypeName' => 'required|string',
-            'delflag' => 'required|boolean', 
-        ]);
-    
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
-    
-        $data = [
-            'assetTypeName' => $request->assetTypeName,
-            'delflag' => $request->delflag,
-        ];
-    
-        try {
-            $assetType = AssetType::create($data);
-            return response()->json([
-                'message' => 'Asset Type created successfully',
-                'data' => $assetType,
-            ], 201);
-        } catch (\Exception $e) {
-            // Log chi tiết lỗi
-            \Log::error('Failed to create asset type: ' . $e->getMessage());
-            \Log::error('Trace: ' . $e->getTraceAsString());
-            return response()->json(['error' => 'Failed to create asset type. Please check the logs for more details.'], 500);
-        }
+{
+    $validate = [ 
+        'assetTypeName' => 'required|string',
+        'delflag' => 'required|boolean', 
+    ];
+
+    $validator = Validator::make($request->all(), $validate);
+
+    if ($validator->fails()) {
+        return response()->json(['error' => $validator->errors()], 400);
     }
+
+    $data = $validator->validated();
+
+    // Log incoming request data and validated data
+    \Log::info('Request Data: ', $request->all());
+    \Log::info('Validated Data: ', $data);
+
+    try {
+        $assetType = AssetType::create($data);
+        return response()->json([
+            'message' => 'Asset Type created successfully',
+            'data' => $assetType,
+        ], 201);
+    } catch (\Illuminate\Database\QueryException $qe) {
+        // Log specific query exception
+        \Log::error('QueryException: ' . $qe->getMessage());
+        \Log::error('Trace: ' . $qe->getTraceAsString());
+        return response()->json(['error' => 'Database error. Please check the logs for more details.'], 500);
+    } catch (\Exception $e) {
+        // Log general exception
+        \Log::error('Exception: ' . $e->getMessage());
+        \Log::error('Trace: ' . $e->getTraceAsString());
+        return response()->json(['error' => 'Failed to create asset type. Please check the logs for more details.'], 500);
+    }
+}
+
     
 
 

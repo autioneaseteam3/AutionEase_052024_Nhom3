@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AssetStatus extends Model
+class BidHistory extends Model
 {
     use HasFactory;
 
-    protected $table = 'AssetStatuses';
-    protected $primaryKey = 'assetStatusID';
+    protected $primaryKey = 'bidHistoryID';
 
     protected $fillable = [
-        'assetStatusName', 'delflag'
+        'auctionItemID', 'userID', 'bidAmount', 'bidTime'
     ];
 }
+
