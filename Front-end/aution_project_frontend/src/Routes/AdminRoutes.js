@@ -10,6 +10,7 @@ import ListSellerPage from "../Pages/AdminPages/Suplier/ListSellerPage";
 import ListEmployeePage from "../Pages/AdminPages/Staff/ListEmployeePage";
 import ListAuctionRequestPage from "../Pages/AdminPages/Requests/ListAuctionRequestPage";
 import ListBillsPage from "../Pages/AdminPages/Bill/ListBillsPage";
+import AddAssetPage from "../Pages/AdminPages/Asset/AddAssetPage";
 
 const adminRoutes=[
     {
@@ -43,6 +44,10 @@ const adminRoutes=[
     {
         path:"Assets",
         element: ListAssetPage
+    },
+    {
+        path: "Assets/AddAsset",
+        element: AddAssetPage
     },
     {
         path:"WareHouses",

@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import TableList from "../../../Components/AdminComponents/TableList";
+import request from "../../../Unltis/Request";
 
 function ListAssetPage() {
   const defaultItem = {
@@ -8,6 +10,13 @@ function ListAssetPage() {
     Date: "20/03/2024",
     Status: "Active",
   }
+  useEffect(()=>{
+    request.get("/users/all").then((res)=>{
+      console.log(res.data);
+    }).catch((e)=>{  
+      console.log(e);
+    })
+  },[])
   const data = Array.from({ length: 8 },()=>({...defaultItem}));
   const column = ["Id", "Name", "AssetType","Date", "Status", "Action"];
   return (
