@@ -6,7 +6,10 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import {
+  PrismaClientKnownRequestError,
+  PrismaClientValidationError,
+} from '@prisma/client/runtime/library';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -20,7 +23,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     // const request = ctx.getRequest();
-    const status = this.getStatus(exception);
+    let status = this.getStatus(exception);
     let defaultRes = {};
     let stack: unknown;
 
@@ -32,12 +35,27 @@ export class AllExceptionsFilter implements ExceptionFilter {
       let msg: string;
       stack = exception.stack;
       if (exception.code === 'P2025') {
+        status = 404;
         statusCode = 404;
         msg = 'No record found with this id';
+      }
+
+      if (exception.code === 'P2003') {
+        status = 400;
+        statusCode = 400;
+        msg = 'Reference field value is invalid';
       }
       defaultRes = {
         statusCode,
         message: msg,
+      };
+    }
+
+    if (exception instanceof PrismaClientValidationError) {
+      status = 400;
+      defaultRes = {
+        statusCode: 400,
+        message: 'Bad request',
       };
     }
 

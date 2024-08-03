@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -38,6 +40,7 @@ export class RequestController {
   }
 
   @ApiResult(RequestDTO, 'request', 'create')
+  @HttpCode(HttpStatus.CREATED)
   @Post()
   createOne(@Body() dto: CreateRequestDTO) {
     return this.requestService.create(dto);
@@ -53,6 +56,7 @@ export class RequestController {
   }
 
   @ApiResult(RequestDTO, 'request', 'delete')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   deleteOne(@Param('id', ParseIntPipe) id: number) {
     return this.requestService.delete(id);

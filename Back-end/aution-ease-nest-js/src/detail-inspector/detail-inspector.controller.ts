@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -44,6 +46,7 @@ export class DetailInspectorController {
   }
 
   @ApiResult(DetailInspectorDTO, 'detail inspector', 'create')
+  @HttpCode(HttpStatus.CREATED)
   @Post()
   createOne(@Body() dto: CreateDetailInspectorDTO) {
     return this.detailInspectorService.create(dto);
@@ -59,6 +62,7 @@ export class DetailInspectorController {
   }
 
   @ApiResult(DetailInspectorDTO, 'detail inspector', 'delete')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   deleteOne(@Param('id', ParseIntPipe) id: number) {
     return this.detailInspectorService.delete(id);

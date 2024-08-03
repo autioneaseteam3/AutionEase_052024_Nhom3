@@ -16,12 +16,15 @@ export class ResponseInterceptor<T> implements NestInterceptor<T, any> {
       'skipGlobalInterceptor',
       context.getHandler(),
     );
+
     if (skip) return next.handle();
 
+    const res = context.switchToHttp().getResponse();
     return next.handle().pipe(
       map((data) => ({
-        status: 'success',
-        data,
+        status: res.statusCode,
+        message: data.message,
+        data: data.data,
       })),
     );
   }

@@ -6,6 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class BaseService<Model, CreateDTO, UpdateDTO> {
   private readonly model: string;
   public readonly pluralModelName: string;
+  public readonly singularModelName: string;
   private readonly modelId: string;
 
   constructor(
@@ -23,18 +24,26 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
           ' ' +
           model.toLocaleLowerCase().slice(index)
         : model.toLocaleLowerCase();
+    this.singularModelName = this.pluralModelName.slice(
+      0,
+      this.pluralModelName.length - 1,
+    );
 
     // console.log(this.pluralModelName);
     const nameModel = this.model.slice(0, model.length - 1);
     this.modelId = nameModel === 'account' ? 'userID' : nameModel + 'ID';
   }
 
-  findAll(): Promise<Model[]> {
+  async findAll() {
     // console.log(this.model);
-    return this.prisma[this.model].findMany();
+    return {
+      data: await this.prisma[this.model].findMany(),
+      message: `Get all ${this.pluralModelName} success`,
+    };
   }
 
-  async findOne(id: number | string): Promise<Model> {
+
+  async findOne(id: number | string) {
     const data = await this.prisma[this.model].findUnique({
       where: {
         [this.modelId]: id,
@@ -46,16 +55,23 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
         `No ${this.pluralModelName} found with this id`,
       );
 
-    return data;
+    return {
+      data,
+      message: `Get ${this.singularModelName} success`,
+    };
   }
 
-  create(dto: CreateDTO): Promise<Model> {
-    return this.prisma[this.model].create({
-      data: dto,
-    });
+  async create(dto: CreateDTO) {
+    return {
+      data: await this.prisma[this.model].create({
+        data: dto,
+      }),
+      message: `Create ${this.singularModelName} success`,
+    };
   }
 
-  async update(id: number | string, dto: UpdateDTO): Promise<Model> {
+
+  async update(id: number | string, dto: UpdateDTO) {
     const updatedData = await this.prisma[this.model].update({
       where: {
         [this.modelId]: id,
@@ -63,16 +79,23 @@ export class BaseService<Model, CreateDTO, UpdateDTO> {
       data: dto,
     });
 
-    return updatedData;
+    return {
+      data: updatedData,
+      message: `Update ${this.singularModelName} success`,
+    };
   }
 
-  async delete(id: number | string): Promise<null> {
+
+  async delete(id: number | string) {
     await this.prisma[this.model].delete({
       where: {
         [this.modelId]: id,
       },
     });
 
-    return null;
+    return {
+      data: null,
+      message: `Delete ${this.singularModelName} success`,
+    };
   }
 }
